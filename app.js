@@ -42,7 +42,7 @@ app.use((req, res) => {
   });
 
 
-let URI="mongodb+srv://mobinulislam:8NWFTTL3vZqC2W0L@cluster0.mskd8ua.mongodb.net/universe_server";
+let URI="mongodb+srv://soft_tech_admin:PMIc5wybWUiTCcBI@cluster0.olinusx.mongodb.net/universe_server";
 
 mongoose.connect(URI, {
          useNewUrlParser: true,
