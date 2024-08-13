@@ -35,14 +35,14 @@ app.use(limiter)
 
 // Routing Implement
 const appRouter = require('./src/Routes/api')
-app.use("/api",appRouter)
+app.use("/api/v1",appRouter)
 
 app.use((req, res) => {
     res.status(404).json({ status: "error", message: "Not Found" });
   });
 
 
-  let URI="mongodb+srv://soft_tech_admin:PMIc5wybWUiTCcBI@cluster0.olinusx.mongodb.net/universe_server";
+  let URI="mongodb+srv://soft_tech_admin:PMIc5wybWUiTCcBI@cluster0.olinusx.mongodb.net/soft_tech";
 mongoose.connect(URI, {
          useNewUrlParser: true,
         useUnifiedTopology: true,
