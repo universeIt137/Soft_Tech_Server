@@ -42,7 +42,8 @@ app.use((req, res) => {
   });
 
 
-  let URI="mongodb+srv://soft_tech_admin:PMIc5wybWUiTCcBI@cluster0.olinusx.mongodb.net/soft_tech";
+let URI="mongodb+srv://soft_tech_admin:PMIc5wybWUiTCcBI@cluster0.olinusx.mongodb.net/soft_tech";
+
 mongoose.connect(URI, {
          useNewUrlParser: true,
         useUnifiedTopology: true,
