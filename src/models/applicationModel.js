@@ -16,6 +16,6 @@ const DataSchema = new mongoose.Schema({
   Benifits: { type: String, required: true },
 }, { timestamps: true, versionKey: false });
 
-const CareerModel = mongoose.model('Careers', DataSchema);
+const CareerModel = mongoose.model('applicatioins', DataSchema);
 
 module.exports = CareerModel;
