@@ -11,10 +11,11 @@ const DataSchema = new mongoose.Schema({
   status: { type: String, required: true },
   workplace: { type: String, required: true },
   workingTime: { type: String, required: true },
-  edu: { type: String, required: true },
+  education: { type: String, required: true },
   salary: { type: String, required: true },
   Benifits: { type: String, required: true },
 }, { timestamps: true, versionKey: false });
+
 
 const CareerModel = mongoose.model('Careers', DataSchema);
 
