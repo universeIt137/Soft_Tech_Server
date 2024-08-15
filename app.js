@@ -36,7 +36,7 @@ app.use(limiter)
 // Routing Implement
 const appRouter = require('./src/Routes/api')
 app.get("/", async (req, res) => {
-    res.send("server is running");
+    res.send("server is healthy");
 })
 app.use("/api/v1",appRouter)
 
