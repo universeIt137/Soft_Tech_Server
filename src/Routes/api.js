@@ -8,6 +8,7 @@ const serviceController = require('../controller/admin/ServiceController.js')
 router.post('/createService', serviceController.CreateService)
 router.get('/getAllService', serviceController.getAllService)
 router.delete('/deleteService/:serviceId', serviceController.deleteService)
+router.get('/getServiceById/:serviceId', serviceController.getServiceById)
 
 
 
