@@ -8,6 +8,7 @@ const UserController = require('../controller/client/UserController.js')
 router.post('/createService', serviceController.CreateService)
 router.get('/getAllService', serviceController.getAllService)
 router.delete('/deleteService/:serviceId', serviceController.deleteService)
+router.get('/getServiceById/:serviceId', serviceController.getServiceById)
 
 
 // Client Api 

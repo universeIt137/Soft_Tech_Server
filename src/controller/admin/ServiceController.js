@@ -31,3 +31,15 @@ exports.deleteService = async(req, res) =>{
         res.status(400).json({status: 'failed'})
     }
 }
+
+exports.getServiceById = async(req, res) =>{
+    try{
+
+        let id = req.params.serviceId
+        let result = await ServiceModel.findOne({_id: id})
+        res.status(200).json({status: 'success', data: result})
+    }catch(e){
+        res.status(400).json({status: 'failed'})
+    }
+}
+
