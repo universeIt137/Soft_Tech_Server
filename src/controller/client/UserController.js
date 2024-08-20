@@ -8,11 +8,11 @@ exports.addUsers = async (req, res) => {
         const existingUser = await checkDuplicateUser(user)
         if (existingUser) {
             return res.send({ message: ' user already exists' })
-
         }
         const result = await UserModel.create(user);
         res.status(200).json({ status: 'success', data: result })
     } catch (e) {
+        console.log(e)
         res.status(400).json({ status: 'failed' })
     }
 }
@@ -52,7 +52,7 @@ exports.deleteUser = async (req, res) => {
     try {
         const id = req.params.id
         const result = await UserModel.findByIdAndDelete(id)
-        res.status(200).json({ status: 'success', data: result })
+        res.status(200).json({ status: 'data delete success', data: result })
     } catch (error) {
         res.status(400).json({ status: 'failed' })
     }

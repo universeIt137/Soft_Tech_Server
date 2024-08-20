@@ -11,8 +11,15 @@ router.post('/createService', serviceController.CreateService)
 router.get('/getAllService', serviceController.getAllService)
 router.delete('/deleteService/:serviceId', serviceController.deleteService)
 router.get('/getServiceById/:serviceId', serviceController.getServiceById)
+
+
 // Career
+// Career--Admin
+router.post('/createCareer', CareerController.CreateCareer)
+router.delete('/deleteCareer/:CareerID', CareerController.deleteCareer)
+// Career--client
 router.get('/getAllCareer', CareerController.getAllCareer)
+router.get('/getSingleCareer/:CareerID', CareerController.getSingleCareer)
 
 
 

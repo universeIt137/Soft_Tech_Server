@@ -19,10 +19,7 @@ const userModelSchema = new Schema({
     isAdmin: {
         type: Boolean,
     },
-    addedTime: {
-        type: Number,
-        // required: true
-    },
-})
+   
+}, { timestamps: true, versionKey: false })
 const UserModel = model('users', userModelSchema);
 module.exports = UserModel;   
