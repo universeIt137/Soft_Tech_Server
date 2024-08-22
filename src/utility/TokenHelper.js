@@ -1,19 +1,20 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-exports.EncodeToken = (email, user_id) =>{
-    let Key = "free_palestine_5548";
-    let EXPIRE = {expiresIn: '24h'}
-    let PAYLOAD = {
-        email:email,
-        user_id:user_id
+// Common Encode Token Function (for both User and Admin)
+exports.EncodeToken = (email, user_id, role = 'user') => { // Default role is 'user'
+    const Key = process.env.ACCESS_TOKEN_SECRET || "free_palestine_5548"; // Use the secret from .env or fallback
+    const EXPIRE = { expiresIn: '24h' };
+    const PAYLOAD = { email, user_id, role }; // Include role in payload
+    return jwt.sign(PAYLOAD, Key, EXPIRE);
+};
+
+// Common Decode Token Function (for both User and Admin)
+exports.DecodeToken = (token) => {
+    try {
+        const Key = process.env.ACCESS_TOKEN_SECRET || "free_palestine_5548"; // Use the secret from .env or fallback
+        return jwt.verify(token, Key);
+    } catch (err) {
+        return null;
     }
-    return jwt.sign(PAYLOAD, Key, EXPIRE)
-}
-exports.DecodeToken = (Token) => {
-    try{
-        let Key = "free_palestine_5548";
-        return jwt.verify(Token,Key)
-    }catch(err){
-        return null
-    }
-}
+};

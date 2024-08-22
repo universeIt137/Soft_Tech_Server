@@ -17,6 +17,11 @@ const userModelSchema = new Schema({
     contactNumber: {
         type: String,
     },
+    password: {
+        type: String,
+        required: true,
+    },
+
     role : {
         type : String,
         enum: ["user", "admin"],
