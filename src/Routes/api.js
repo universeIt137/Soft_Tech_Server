@@ -7,6 +7,7 @@ const UserController = require('../controller/client/UserController.js')
 
 // Admin Api
 // Service
+// working on fresh copy 
 router.post('/createService', serviceController.CreateService)
 router.get('/getAllService', serviceController.getAllService)
 router.delete('/deleteService/:serviceId', serviceController.deleteService)
