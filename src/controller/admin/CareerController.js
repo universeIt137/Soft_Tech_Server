@@ -1,5 +1,9 @@
 const CareerModel = require('./../../models/CareerModel')
 
+const UserModel = require('./../../models/UserModel')
+
+
+
 exports.CreateCareer = async(req, res) =>{
     try{
         let reqBody = req.body;
@@ -9,6 +13,7 @@ exports.CreateCareer = async(req, res) =>{
         res.status(400).json({status: 'failed'})
     }
 }
+
 exports.getAllCareer = async(req, res) =>{
     try{
         const result = await CareerModel.find()
