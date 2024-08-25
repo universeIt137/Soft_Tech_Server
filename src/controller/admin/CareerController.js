@@ -22,6 +22,16 @@ exports.getAllCareer = async(req, res) =>{
         res.status(400).json({status: 'failed'})
     }
 }
+exports.updateCareer = async(req, res) =>{
+    try{
+        let reqBody = req.body
+        let careerId = req.params.careerID
+        const result = await CareerModel.updateOne({_id: careerId}, reqBody)
+        res.status(200).json({status: 'success', data: result})
+    }catch(e){
+        res.status(400).json({status: 'failed'})
+    }
+}
 exports.getSingleCareer = async(req, res) =>{
     try{
         const Careerid = req.params.CareerID
@@ -40,3 +50,6 @@ exports.deleteCareer = async(req, res) =>{
         res.status(400).json({status: 'failed'})
     }
 }
+
+
+

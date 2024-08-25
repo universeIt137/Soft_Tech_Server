@@ -14,6 +14,9 @@ const DataSchema = new mongoose.Schema({
     edu: { type: String, required: true },
     salary: { type: String, required: true },
     Benifits: { type: String, required: true },
+
+   
+
   }, { timestamps: true, versionKey: false });
 
 const CareerModel = mongoose.model('careers', DataSchema)
