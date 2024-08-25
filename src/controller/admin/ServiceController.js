@@ -21,6 +21,16 @@ exports.getAllService = async(req, res) =>{
         res.status(400).json({status: 'failed'})
     }
 }
+exports.updateService = async(req, res) =>{
+    try{
+        const reqBody = req.body
+        const serviceId = req.params.serviceID
+        const result = await ServiceModel.updateOne({_id: serviceId}, reqBody)
+        res.status(200).json({status: 'success', data: result})
+    }catch(e){
+        res.status(400).json({status: 'failed'})
+    }
+}
 exports.deleteService = async(req, res) =>{
     try{
         let id = req.params.serviceId
