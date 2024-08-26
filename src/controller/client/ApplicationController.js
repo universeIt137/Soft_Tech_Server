@@ -105,6 +105,7 @@ exports.getApplicationByUser = async (req, res) => {
         
         let UnwindUserStage = {$unwind: '$user'}
 
+        console.log(user_id)
         let result = await ApplicationModel.aggregate([
             MatchStage,
             JoinWithUserStage,

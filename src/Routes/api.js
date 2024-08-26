@@ -35,8 +35,6 @@ router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationCo
 
 
 
-
-
 // ----client api
 
 // user Authorization
