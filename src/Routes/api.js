@@ -3,6 +3,7 @@ const router = express.Router()
 const serviceController = require('../controller/admin/ServiceController.js')
 const CareerController = require('../controller/admin/CareerController.js')
 const UserController = require('../controller/client/UserController.js')
+const ProductController = require('../controller/admin/ProductController.js')
 const ApplicationController = require('../controller/client/ApplicationController.js')
 const AdminController = require('../controller/admin/adminAuth.js')
 const AuthMiddleware = require('../middleware/Authmiddilware.js')
@@ -31,6 +32,25 @@ router.get('/Allusers', AuthMiddleware('user') ,UserController.getAllUsers)
 router.get('/getApplication',AuthMiddleware('admin'), ApplicationController.getApplication)
 router.get('/career/applications/:careerId' , AuthMiddleware('admin'), ApplicationController.getApplicationsByCareer);
 router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationController.deleteApplication);
+// product controller
+router.get('/GetProducts', ProductController.GetProducts);
+router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
+router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -50,6 +70,9 @@ router.delete('/DeleteUser/:id', UserController.deleteUser)
 router.post('/applyJob/:careerId',  ApplicationController.applyJob)
 router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)
 router.get('/getApplicationByUser' , AuthMiddleware('user'), ApplicationController.getApplicationByUser);
+// product
+router.post('/CreateProduct', ProductController.CreateProduct);
+
 
 
 
