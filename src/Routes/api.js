@@ -52,7 +52,11 @@ router.delete(
     AuthMiddleware("admin"), portfolioController.deletePortfolio
 );
 
-
+router.put
+(
+    "/portfolio/update/:id",
+    AuthMiddleware("admin"), portfolioController.updatePortfolio
+);
 
 
 
