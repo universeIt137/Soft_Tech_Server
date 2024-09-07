@@ -41,7 +41,16 @@ router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
 
 // portfolio api
 
-router.post("/portfolio/create", AuthMiddleware("admin"), portfolioController.createPortfolio);
+router.post
+(
+    "/portfolio/create", 
+    AuthMiddleware("admin"), portfolioController.createPortfolio
+);
+
+router.delete(
+    "/portfolio/create/:id",
+    AuthMiddleware("admin"), portfolioController.deletePortfolio
+);
 
 
 
