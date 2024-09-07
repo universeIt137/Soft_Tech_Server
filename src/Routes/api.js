@@ -6,7 +6,9 @@ const UserController = require('../controller/client/UserController.js')
 const ProductController = require('../controller/admin/ProductController.js')
 const ApplicationController = require('../controller/client/ApplicationController.js')
 const AdminController = require('../controller/admin/adminAuth.js')
-const AuthMiddleware = require('../middleware/Authmiddilware.js')
+const AuthMiddleware = require('../middleware/Authmiddilware.js');
+// portfolio controller
+const portfolioController = require("../controller/admin/portfolioController.js");
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
@@ -37,6 +39,9 @@ router.get('/GetProducts', ProductController.GetProducts);
 router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
 
+// portfolio api
+
+router.post("/portfolio/create", AuthMiddleware("admin"), portfolioController.createPortfolio);
 
 
 
