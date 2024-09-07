@@ -6,11 +6,7 @@ const jwt = require('jsonwebtoken');
 
 exports.CreateAdmin = async (req, res) => {
     try {
-        const { name, contactNumber, profilePhoto } = req.body;
-
-        // Extract admin email and password from .env
-        const email = process.env.ADMIN_EMAIL;
-        const password = process.env.ADMIN_PASSWORD;
+        const { name, email,password, contactNumber, profilePhoto } = req.body;
 
         // Validate input
         if (!name || !email || !password) {
@@ -33,13 +29,11 @@ exports.CreateAdmin = async (req, res) => {
 
         await newAdmin.save()
 
-       
 
 
         res.status(201).json({ status: 'Success', data: newAdmin });
 
 
-       
     } catch (e) {
         console.error(e);
         res.status(500).json({ status: 'Failed', data: 'An error occurred during admin creation' });
