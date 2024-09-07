@@ -51,6 +51,7 @@ exports.Adminlogin = async (req, res) => {
 
         // Find the user by email
         const user = await UserModel.findOne({ email });
+        console.log(user);
 
         if (!user) {
             return res.status(400).json({ status: "Failed", data: "Invalid email or password" });
