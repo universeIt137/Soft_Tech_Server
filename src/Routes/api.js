@@ -58,7 +58,11 @@ router.put
     AuthMiddleware("admin"), portfolioController.updatePortfolio
 );
 
-
+router.get
+(
+    "/get-all-portfolio",
+    portfolioController.getAllPortfolio
+);
 
 
 
