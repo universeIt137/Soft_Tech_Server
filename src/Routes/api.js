@@ -33,11 +33,10 @@ router.get('/getApplication',AuthMiddleware('admin'), ApplicationController.getA
 router.get('/career/applications/:careerId' , AuthMiddleware('admin'), ApplicationController.getApplicationsByCareer);
 router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationController.deleteApplication);
 // product controller
+router.post('/CreateProduct', AuthMiddleware('admin'), ProductController.CreateProduct);
 router.get('/GetProducts', ProductController.GetProducts);
-router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
-router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
-
-
+router.put('/UpdateProduct/:id', AuthMiddleware('admin'), ProductController.UpdateProduct);
+router.delete('/DeleteProduct/:id', AuthMiddleware('admin'), ProductController.DeleteProduct);
 
 
 
@@ -71,7 +70,7 @@ router.post('/applyJob/:careerId',  ApplicationController.applyJob)
 router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)
 router.get('/getApplicationByUser' , AuthMiddleware('user'), ApplicationController.getApplicationByUser);
 // product
-router.post('/CreateProduct', ProductController.CreateProduct);
+
 
 
 
