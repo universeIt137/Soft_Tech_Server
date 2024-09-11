@@ -50,7 +50,7 @@ exports.DeleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const result = await ProductModel.findByIdAndDelete(id);
-        if(rewsult) {
+        if(result) {
             res.status(200).json({status: 'success', message: 'Product deleted successfully'});
         } else {
             res.status(404).json({status: 'failed', message: 'Product not found'});
