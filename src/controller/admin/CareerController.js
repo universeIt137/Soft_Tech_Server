@@ -1,7 +1,7 @@
 const CareerModel = require('./../../models/CareerModel')
 const ApplicationModel = require('./../../models/applicationModel')
 
-const UserModel = require('./../../models/UserModel')
+const UserModel = require('./../../models/UserModel');
 
 
 
@@ -42,9 +42,10 @@ exports.getSingleCareer = async(req, res) =>{
         res.status(400).json({status: 'failed'})
     }
 }
+
 exports.deleteCareer = async(req, res) =>{
     try{
-        const Careerid = req.params.CareerID;
+        const Careerid = req.params.CareerID
         
         let data = await CareerModel.findOne({_id:Careerid});
         if(!data) return res.status(404).json({
