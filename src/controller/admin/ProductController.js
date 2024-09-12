@@ -59,3 +59,25 @@ exports.DeleteProduct = async (req, res) => {
         res.status(400).json({status: 'failed', error: e.message});
     }
 };
+
+
+exports.singleProductById = async (req,res)=>{
+    try {
+        let id = req.params.id;
+        let data = await ProductModel.findById({_id : id});
+        if(!data)return res.status(404).json({
+            status:"fail",
+            msg : "Product not found"
+        });
+        return res.status(200).json({
+            status:"success",
+            msg : "Product find by id",
+            data : data
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status:"fail",
+            msg : error.toString()
+        });
+    }
+}
