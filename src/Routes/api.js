@@ -39,6 +39,11 @@ router.post('/CreateProduct', AuthMiddleware('admin'), ProductController.CreateP
 router.get('/GetProducts', ProductController.GetProducts);
 router.put('/UpdateProduct/:id', AuthMiddleware('admin'), ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', AuthMiddleware('admin'), ProductController.DeleteProduct);
+router.get
+(
+    "/single-product/:id",
+    AuthMiddleware("admin"),ProductController.singleProductById
+)
 
 
 
