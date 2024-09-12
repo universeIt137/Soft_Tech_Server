@@ -46,9 +46,14 @@ exports.getSingleCareer = async(req, res) =>{
 exports.deleteCareer = async(req, res) =>{
     try{
         const Careerid = req.params.CareerID
-        await ApplicationModel.deleteOne({carreerID: Careerid})
-        const result = await CareerModel.deleteOne({_id: Careerid})
-        res.status(200).json({status: 'success', data: result})
+        
+        let data = await CareerModel.findOne({_id:Careerid});
+        if(!data) return res.status(404).json({
+            status:"fail",
+            msg : "data not found"
+        });
+        await CareerModel.findByIdAndDelete({_id : Careerid});
+        res.status(200).json({status: 'success',msg:"Career delete successfully"})
     }catch(e){
         res.status(400).json({status: 'failed', data: e})
     }
