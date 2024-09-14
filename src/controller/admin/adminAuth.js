@@ -51,6 +51,7 @@ exports.Adminlogin = async (req, res) => {
 
         // Find the user by email
         const user = await UserModel.findOne({ email });
+        console.log( typeof user.role);
 
         if (!user) {
             return res.status(400).json({ status: "Failed", data: "Invalid email or password" });
@@ -66,7 +67,8 @@ exports.Adminlogin = async (req, res) => {
             return res.status(403).json({ status: "Failed", data: "Access denied. Admins only." });
         }
 
-        const token = EncodeToken(email, user._id.toString(), 'admin');
+        const token = EncodeToken(email, user._id.toString(), "admin" );
+
         let CookieOption = { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), httpOnly: false };
 
         res.cookie('Admintoken', token, CookieOption);
