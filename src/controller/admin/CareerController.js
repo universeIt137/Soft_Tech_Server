@@ -24,7 +24,6 @@ exports.CreateCareer = async (req, res) => {
     res.status(200).json({ status: "success", data: result });
   } catch (e) {
     // Log the error for debugging purposes
-    console.error("Error creating career:", e);
 
     // Respond with failure status and error message
     res.status(400).json({ status: "failed", message: e.message });
@@ -43,7 +42,6 @@ exports.updateCareer = async (req, res) => {
   try {
     let reqBody = req.body;
     let careerId = req.params.careerID;
-    console.log(`user carrer id is ${careerId}`);
     const result = await CareerModel.updateOne({ _id: careerId }, reqBody);
     res.status(200).json({ status: "success", data: result });
   } catch (e) {

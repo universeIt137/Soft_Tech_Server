@@ -5,14 +5,10 @@ module.exports = (requiredRole = 'user') => {
         let token = req.headers['token'] || req.cookies['token'];
         let adminToken = req.headers['Admintoken'] || req.cookies['Admintoken'];
 
-        console.log("User Token: ", token);  // Log the tokens
-        console.log("Admin Token: ", adminToken);
 
         let decodedUserToken = token ? DecodeToken(token) : null;
         let decodedAdminToken = adminToken ? DecodeToken(adminToken) : null;
 
-        // console.log("Decoded User Token: ", decodedUserToken);  // Log decoded tokens
-        // console.log("Decoded Admin Token: ", decodedAdminToken);
 
         if (!decodedUserToken && !decodedAdminToken) {
             return res.status(401).json({ status: "fail", message: "Unauthorized" });

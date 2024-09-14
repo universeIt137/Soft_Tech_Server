@@ -35,7 +35,6 @@ exports.CreateUser = async (req, res) => {
 
         }
     } catch (e) {
-        console.log(e)
         res.status(400).json({ status: 'failed' })
     }
 }
@@ -56,7 +55,6 @@ exports.EmailVerify = async(req, res) => {
         }
         
     }catch(e){
-        console.error(`Error during verification: ${err}`);
         res.status(400).json({ status: "fail", data: err.toString() });
     }
 }
@@ -84,7 +82,6 @@ exports.login = async (req, res) => {
             let CookieOption = {expires: new Date(Date.now()+24*60*60*1000), httpOnly: false}
 
             res.cookie('token', token, CookieOption)
-            console.log(token)
             res.status(200).json({ status: "success", message: 'Login success', token: token, data: user });
 
         }else{
@@ -92,7 +89,6 @@ exports.login = async (req, res) => {
         }
 
     } catch (e) {
-        console.log(e)
         res.status(400).json({ status: 'failed' })
     }
 }

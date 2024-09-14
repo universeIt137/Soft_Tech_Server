@@ -51,7 +51,6 @@ exports.Adminlogin = async (req, res) => {
 
         // Find the user by email
         const user = await UserModel.findOne({ email });
-        console.log( typeof user.role);
 
         if (!user) {
             return res.status(400).json({ status: "Failed", data: "Invalid email or password" });
@@ -85,7 +84,6 @@ exports.getAdminProfile = async (req, res) => {
         let result = await UserModel.findOne({_id: user_id})
         res.status(200).json({status: "success",  data: result})
     } catch (e) {
-        console.log(e)
         res.status(500).json({ status: 'Failed', data: e.toString() });
     }
 };

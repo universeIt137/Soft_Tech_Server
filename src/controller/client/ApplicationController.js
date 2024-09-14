@@ -42,7 +42,6 @@ exports.getApplication = async (req, res) => {
         res.status(200).json({ status: 'Success', data: result });
 
     } catch (e) {
-        console.log(e);
         res.status(400).json({ status: 'failed', result: e });
     }
 }
@@ -105,7 +104,6 @@ exports.getApplicationByUser = async (req, res) => {
         
         let UnwindUserStage = {$unwind: '$user'}
 
-        console.log(user_id)
         let result = await ApplicationModel.aggregate([
             MatchStage,
             JoinWithUserStage,
