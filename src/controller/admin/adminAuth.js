@@ -66,7 +66,8 @@ exports.Adminlogin = async (req, res) => {
             return res.status(403).json({ status: "Failed", data: "Access denied. Admins only." });
         }
 
-        const token = EncodeToken(email, user._id.toString(), 'admin');
+        const token = EncodeToken(email, user._id.toString(), "admin" );
+
         let CookieOption = { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), httpOnly: false };
 
         res.cookie('Admintoken', token, CookieOption);
@@ -83,7 +84,6 @@ exports.getAdminProfile = async (req, res) => {
         let result = await UserModel.findOne({_id: user_id})
         res.status(200).json({status: "success",  data: result})
     } catch (e) {
-        console.log(e)
         res.status(500).json({ status: 'Failed', data: e.toString() });
     }
 };
