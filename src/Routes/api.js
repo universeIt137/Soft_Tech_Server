@@ -41,8 +41,7 @@ router.put('/UpdateProduct/:id', AuthMiddleware('admin'), ProductController.Upda
 router.delete('/DeleteProduct/:id', AuthMiddleware('admin'), ProductController.DeleteProduct);
 router.get
 (
-    "/single-product/:id",
-    AuthMiddleware("admin"),ProductController.singleProductById
+    "/single-product/:id",ProductController.singleProductById
 )
 
 
