@@ -9,6 +9,7 @@ module.exports = (requiredRole = 'user') => {
         let decodedUserToken = token ? DecodeToken(token) : null;
         let decodedAdminToken = adminToken ? DecodeToken(adminToken) : null;
 
+        console.log(`admin token is ${decodedAdminToken}`);
 
         if (!decodedUserToken && !decodedAdminToken) {
             return res.status(401).json({ status: "fail", message: "Unauthorized" });
