@@ -34,8 +34,13 @@ router.get('/Allusers', AuthMiddleware('user') ,UserController.getAllUsers)
 router.get('/getApplication',AuthMiddleware('admin'), ApplicationController.getApplication)
 router.get('/career/applications/:careerId' , AuthMiddleware('admin'), ApplicationController.getApplicationsByCareer);
 router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationController.deleteApplication);
+
 // product controller
-router.post('/CreateProduct', AuthMiddleware('admin'), ProductController.CreateProduct);
+router.post
+(
+    '/create-product',
+    AuthMiddleware('admin'), ProductController.CreateProduct
+);
 router.get('/GetProducts', ProductController.GetProducts);
 router.put('/UpdateProduct/:id', AuthMiddleware('admin'), ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', AuthMiddleware('admin'), ProductController.DeleteProduct);

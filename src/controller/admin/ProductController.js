@@ -3,15 +3,18 @@ const ProductModel = require('../../models/ProductModel'); // Adjust the path as
 // Create Product
 exports.CreateProduct = async (req, res) => {
     try {
-        const productData = {
-            productName: req.body.productName,
-            productImage: req.body.productImage,
-            productDesc: req.body.productDesc
-        };
-        const result = await ProductModel.create(productData);
-        res.status(200).json({status: 'success', data: result});
+        const reqBody = req.body;
+        const result = await ProductModel.create(reqBody);
+        return res.status(201).json({
+            status:"success",
+            msg : "Product create successfully",
+            data : result
+        });
     } catch (e) {
-        res.status(400).json({status: 'failed', error: e.message});
+        res.status(500).json({
+            status: 'fail', 
+            msg: e.message
+        });
     }
 };
 
