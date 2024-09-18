@@ -15,11 +15,31 @@ router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
 router.get('/getAdminProfile', AuthMiddleware('admin'), AdminController.getAdminProfile)
 //  service
-router.get('/getAllService', serviceController.getAllService)
-router.post('/createService', serviceController.CreateService)
-router.post('/updateService/:serviceID', serviceController.updateService)
-router.delete('/deleteService/:serviceId', serviceController.deleteService)
-router.get('/getServiceById/:serviceId', serviceController.getServiceById)
+router.get
+(
+    '/get-all-service',
+    serviceController.getAllService
+)
+router.post
+(
+    '/create-service',
+    serviceController.CreateService
+)
+router.put
+(
+    '/update-service/:id'
+    , serviceController.updateService
+)
+router.delete
+(
+    '/delete-service/:id',
+    serviceController.deleteService
+)
+router.get
+(
+    '/get-service-by-id/:id',
+    serviceController.getServiceById
+)
 // career
 router.get('/getAllCareer', CareerController.getAllCareer)
 router.post('/createCareer',AuthMiddleware('admin'), CareerController.CreateCareer)
