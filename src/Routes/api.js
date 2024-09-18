@@ -41,8 +41,19 @@ router.post
     '/create-product',
     AuthMiddleware('admin'), ProductController.CreateProduct
 );
-router.get('/get-products', ProductController.GetProducts);
-router.put('/UpdateProduct/:id', AuthMiddleware('admin'), ProductController.UpdateProduct);
+router.get
+(
+    '/get-products',
+    ProductController.GetProducts
+);
+
+router.put
+(
+    '/update-product/:id',
+    AuthMiddleware('admin'),
+    ProductController.UpdateProduct
+);
+
 router.delete('/DeleteProduct/:id', AuthMiddleware('admin'), ProductController.DeleteProduct);
 router.get
 (
