@@ -63,15 +63,28 @@ exports.updateService = async (req, res) => {
     });
   }
 };
+
 exports.deleteService = async (req, res) => {
   try {
-    let id = req.params.serviceId;
-    await ServiceModel.deleteOne({ _id: id });
-    res
-      .status(200)
-      .json({ status: "success", data: "Data delete Successfully" });
+    let id = req.params.id;
+    let result = await ServiceModel.findById({ _id: id });
+    if (!result)
+      return res.status(404).json({
+        status: "fail",
+        msg: "Service not found",
+      });
+
+    await ServiceModel.findByIdAndDelete({ _id: id });
+
+    return res.status(200).json({
+      status: "success",
+      msg: "Service delete successfully",
+    });
   } catch (e) {
-    res.status(400).json({ status: "failed" });
+    res.status(500).json({
+      status: "fail",
+      msg: e.toString(),
+    });
   }
 };
 
