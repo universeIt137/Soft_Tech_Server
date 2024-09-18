@@ -1,54 +1,60 @@
-const express = require('express')
-const ServiceModel = require('../../models/ServiceModel')
-const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
+const express = require("express");
+const ServiceModel = require("../../models/ServiceModel");
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
-exports.CreateService = async(req, res) =>{
-    try{
-        let reqBody = req.body;
-        const result = await ServiceModel.create(reqBody)
-        res.status(200).json({status: 'success', data: result})
-    }catch(e){
-        res.status(400).json({status: 'failed'})
+exports.CreateService = async (req, res) => {
+  try {
+    let reqBody = req.body;
+    const result = await ServiceModel.create(reqBody);
+    res.status(200).json({
+      status: "success",
+      msg : "Service create successfully",
+      data: result,
+    });
+  } catch (e) {
+    res.status(500).json({ 
+        status: "fail",
+        msg : e.toString() 
+    });
+  }
+};
+exports.getAllService = async (req, res) => {
+  try {
+    const result = await ServiceModel.find();
+    res.status(200).json({ status: "success", data: result });
+  } catch (e) {
+    res.status(400).json({ status: "failed" });
+  }
+};
+exports.updateService = async (req, res) => {
+  try {
+    const reqBody = req.body;
+    const serviceId = req.params.serviceID;
+    const result = await ServiceModel.updateOne({ _id: serviceId }, reqBody);
+    res.status(200).json({ status: "success", data: result });
+  } catch (e) {
+    res.status(400).json({ status: "failed" });
+  }
+};
+exports.deleteService = async (req, res) => {
+  try {
+    let id = req.params.serviceId;
+    await ServiceModel.deleteOne({ _id: id });
+    res
+      .status(200)
+      .json({ status: "success", data: "Data delete Successfully" });
+  } catch (e) {
+    res.status(400).json({ status: "failed" });
+  }
+};
 
-    }
-}
-exports.getAllService = async(req, res) =>{
-    try{
-        const result = await ServiceModel.find()
-        res.status(200).json({status: 'success', data: result})
-    }catch(e){
-        res.status(400).json({status: 'failed'})
-    }
-}
-exports.updateService = async(req, res) =>{
-    try{
-        const reqBody = req.body
-        const serviceId = req.params.serviceID
-        const result = await ServiceModel.updateOne({_id: serviceId}, reqBody)
-        res.status(200).json({status: 'success', data: result})
-    }catch(e){
-        res.status(400).json({status: 'failed'})
-    }
-}
-exports.deleteService = async(req, res) =>{
-    try{
-        let id = req.params.serviceId
-        await ServiceModel.deleteOne({_id: id})
-        res.status(200).json({status: 'success', data: "Data delete Successfully"})
-    }catch(e){
-        res.status(400).json({status: 'failed'})
-    }
-}
-
-exports.getServiceById = async(req, res) =>{
-    try{
-
-        let id = req.params.serviceId
-        let result = await ServiceModel.findOne({_id: id})
-        res.status(200).json({status: 'success', data: result})
-    }catch(e){
-        res.status(400).json({status: 'failed'})
-    }
-}
-
+exports.getServiceById = async (req, res) => {
+  try {
+    let id = req.params.serviceId;
+    let result = await ServiceModel.findOne({ _id: id });
+    res.status(200).json({ status: "success", data: result });
+  } catch (e) {
+    res.status(400).json({ status: "failed" });
+  }
+};

@@ -63,10 +63,9 @@ router.delete
 
 router.get
 (
-    "/single-product/:id",ProductController.singleProductById
+    "/single-product/:id",
+    ProductController.singleProductById
 )
-
-
 
 router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
