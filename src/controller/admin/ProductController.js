@@ -22,7 +22,11 @@ exports.CreateProduct = async (req, res) => {
 exports.GetProducts = async (req, res) => {
     try {
         const products = await ProductModel.find();
-        res.status(200).json({status: 'success', data: products});
+        res.status(200).json({
+            status: 'success',
+            msg : "Get all product successfully",
+            data: products
+        });
     } catch (e) {
         res.status(400).json({status: 'failed', error: e.message});
     }
