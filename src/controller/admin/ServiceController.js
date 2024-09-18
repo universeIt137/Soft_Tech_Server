@@ -22,9 +22,16 @@ exports.CreateService = async (req, res) => {
 exports.getAllService = async (req, res) => {
   try {
     const result = await ServiceModel.find();
-    res.status(200).json({ status: "success", data: result });
+    res.status(200).json({ 
+      status: "success",
+      msg : "Get all service successfully",
+      data: result 
+    });
   } catch (e) {
-    res.status(400).json({ status: "failed" });
+    res.status(500).json({ 
+      status: "failed",
+      msg : e.toString() 
+    });
   }
 };
 exports.updateService = async (req, res) => {
