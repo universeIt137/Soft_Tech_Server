@@ -54,7 +54,13 @@ router.put
     ProductController.UpdateProduct
 );
 
-router.delete('/DeleteProduct/:id', AuthMiddleware('admin'), ProductController.DeleteProduct);
+router.delete
+(
+    '/delete-product/:id', 
+    AuthMiddleware('admin'),
+    ProductController.DeleteProduct
+);
+
 router.get
 (
     "/single-product/:id",ProductController.singleProductById
