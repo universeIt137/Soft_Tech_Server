@@ -35,20 +35,26 @@ exports.GetProducts = async (req, res) => {
 // Update Product
 exports.UpdateProduct = async (req, res) => {
     try {
-        const { id } = req.params;
-        const updatedData = {
-            productName: req.body.productName,
-            productImage: req.body.productImage,
-            productDesc: req.body.productDesc
-        };
-        const result = await ProductModel.findByIdAndUpdate(id, updatedData, { new: true });
-        if(result) {
-            res.status(200).json({status: 'success', data: result});
-        } else {
-            res.status(404).json({status: 'failed', message: 'Product not found'});
-        }
+        const  id  = req.params.id;
+        const reqBody = req.body;
+        let filter = {_id : id};
+        let update = reqBody;
+        let data = await ProductModel.findById({_id : id});
+
+        if(!data) return res.status(404).json({
+            status:"fail",
+            msg : "Product not found"
+        })
+
+        const result = await ProductModel.findByIdAndUpdate(filter,update,{new:true});
+            res.status(200).json({
+                status: 'success',
+                msg : "Product update successfully",
+                data: result,
+            });
+
     } catch (e) {
-        res.status(400).json({status: 'failed', error: e.message});
+        res.status(400).json({status: 'fail', error: e.message});
     }
 };
 
