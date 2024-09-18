@@ -61,15 +61,24 @@ exports.UpdateProduct = async (req, res) => {
 // Delete Product
 exports.DeleteProduct = async (req, res) => {
     try {
-        const { id } = req.params;
-        const result = await ProductModel.findByIdAndDelete(id);
+        const id = req.params.id;
+        const result = await ProductModel.findByIdAndDelete({_id : id });
         if(result) {
-            res.status(200).json({status: 'success', message: 'Product deleted successfully'});
+            res.status(200).json({
+                status: 'success', 
+                message: 'Product deleted successfully'
+            });
         } else {
-            res.status(404).json({status: 'failed', message: 'Product not found'});
+            res.status(404).json({
+                status: 'fail',
+                message: 'Product not found'
+            });
         }
     } catch (e) {
-        res.status(400).json({status: 'failed', error: e.message});
+        res.status(500).json({
+            status: 'fail',
+            error: e.message
+        });
     }
 };
 
