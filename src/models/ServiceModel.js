@@ -4,13 +4,13 @@ const descriptionSchema = new mongoose.Schema({
   description_logo: { type: String, required: true },
   description_heading : { type: String, required: true },
   description : {type : String,required : true}
-}, { _id: false });
+}, { _id: true });
 
 const featureSchema = new mongoose.Schema({
   feature_logo: { type: String, required: true },
   feature_title : { type: String, required: true },
   feature_description : {type : String,required : true}
-}, { _id: false });
+}, { _id: true });
 
 const serviceSchema = new mongoose.Schema({
   nav_logo : {type : String,required : true},
