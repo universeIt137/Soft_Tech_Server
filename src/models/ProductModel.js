@@ -6,7 +6,7 @@ const extraSchema = new Schema({
     extra_description : { type: String, required: true },
     description_img : { type: String, required: true },
     description_title : { type: String, required: true },
-},{_id : false});
+},{_id : true});
 
 const productSchema = new Schema({
     nav_logo: { type: String, required: true },
