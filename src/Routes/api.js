@@ -7,6 +7,8 @@ const ProductController = require('../controller/admin/ProductController.js')
 const ApplicationController = require('../controller/client/ApplicationController.js')
 const AdminController = require('../controller/admin/adminAuth.js')
 const AuthMiddleware = require('../middleware/Authmiddilware.js');
+// img utility
+const upload = require("../utility/imgUtility.js");
 // portfolio controller
 const portfolioController = require("../controller/admin/portfolioController.js");
 
@@ -20,9 +22,10 @@ router.get
     '/get-all-service',
     serviceController.getAllService
 )
+
 router.post
 (
-    '/create-service',
+    '/create-service', upload,
     serviceController.CreateService
 )
 router.put
