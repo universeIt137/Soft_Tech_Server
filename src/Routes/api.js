@@ -30,7 +30,7 @@ router.post
 )
 router.put
 (
-    '/update-service/:id'
+    '/update-service/:id', upload
     , serviceController.updateService
 )
 router.delete
