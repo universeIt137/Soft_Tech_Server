@@ -28,8 +28,8 @@ mongoose.set("strictQuery", false);
 
 app.use(bodyParser.json());
 
-app.use(express.urlencoded({ limit: '1000mb'}));
-app.use(express.json({limit: '1000mb'}));
+app.use(express.urlencoded({ limit: '100mb'}));
+app.use(express.json({limit: '100mb'}));
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000 });
 app.use(limiter);
