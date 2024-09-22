@@ -2,58 +2,29 @@ const express = require("express");
 const ServiceModel = require("../../models/ServiceModel");
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
-const cloudinary = require("../../utility/cludinary");
 
 
 
 exports.CreateService = async (req, res) => {
-  try {
-    let {
-      nav_title,
-      nav_description,
-      main_title,
-      tag_line,
-      description_heading,
-      description,
-      feature_description,
-      feature_title,
-    } = req.body;
-    
-    const newService = new ServiceModel({
-      nav_title,
-      nav_description,
-      main_title,
-      tag_line,
-      nav_logo: imageUrls[0],
-      banner_img: imageUrls[1],
-      description_feature: [
-        {
-          description_logo: imageUrls[2],
-          description_heading,
-          description,
-        },
-      ],
-      feature: [
-        {
-          feature_logo: imageUrls[3],
-          feature_title,
-          feature_description,
-        },
-      ],
-    });
-    const data = await newService.save();
+  try{
+    const reqBody = req.body;
+    const result = await ServiceModel.create(reqBody);
     res.status(201).json({
       status: "success",
       msg: "Service created successfully",
-      data: data,
+      data: result,
     });
-  } catch (error) {
-    return res.status(500).json({
-      status: "fail",
-      msg: e.toString(),
+  }catch(err){
+    res.status(500).json({
+      status: "failed",
+      msg: err.toString(),
     });
   }
+  
 };
+
+
+
 
 
 exports.getAllService = async (req, res) => {

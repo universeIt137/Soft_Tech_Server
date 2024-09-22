@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 exports.CreateAdmin = async (req, res) => {
     try {
         const { name, email,password, contactNumber, profilePhoto } = req.body;
+        console.log(name,email);
 
         // Validate input
         if (!name || !email || !password) {
