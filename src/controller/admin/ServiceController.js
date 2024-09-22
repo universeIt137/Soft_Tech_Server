@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 const cloudinary = require("../../utility/cludinary");
 
+
+
 exports.CreateService = async (req, res) => {
   try {
     let {
@@ -16,67 +18,42 @@ exports.CreateService = async (req, res) => {
       feature_description,
       feature_title,
     } = req.body;
-
-    let imageUrls = [];
-    if (req.files) {
-      if (req.files['nav_logo']) {
-        const result = await cloudinary.uploader.upload(req.files['nav_logo'][0].path, { folder: "services-img" });
-        imageUrls.push(result.secure_url);
-      }
-      if (req.files['banner_img']) {
-        const result = await cloudinary.uploader.upload(req.files['banner_img'][0].path, { folder: "services-img" });
-        imageUrls.push(result.secure_url);
-      }
-      if (req.files['description_logo']) {
-        const result = await cloudinary.uploader.upload(req.files['description_logo'][0].path, { folder: "services-img" });
-        imageUrls.push(result.secure_url);
-      }
-      if (req.files['feature_logo']) {
-        const result = await cloudinary.uploader.upload(req.files['feature_logo'][0].path, { folder: "services-img" });
-        imageUrls.push(result.secure_url);
-      }
-    }
-
+    
     const newService = new ServiceModel({
       nav_title,
       nav_description,
       main_title,
       tag_line,
-      nav_logo : imageUrls[0],
-      banner_img : imageUrls[1],
+      nav_logo: imageUrls[0],
+      banner_img: imageUrls[1],
       description_feature: [
-        { 
-          description_logo: imageUrls[2], 
-          description_heading, 
-          description 
-        }
+        {
+          description_logo: imageUrls[2],
+          description_heading,
+          description,
+        },
       ],
       feature: [
-        { 
-          feature_logo: imageUrls[3], 
-          feature_title, 
-          feature_description 
-        }
-      ]
-  });
-    
-
+        {
+          feature_logo: imageUrls[3],
+          feature_title,
+          feature_description,
+        },
+      ],
+    });
     const data = await newService.save();
-
-    return res.status(201).json({
+    res.status(201).json({
       status: "success",
       msg: "Service created successfully",
       data: data,
     });
-  } catch (e) {
-    console.log(e.toString());
-    res.status(500).json({
+  } catch (error) {
+    return res.status(500).json({
       status: "fail",
       msg: e.toString(),
     });
   }
 };
-
 
 
 exports.getAllService = async (req, res) => {
@@ -107,7 +84,6 @@ exports.updateService = async (req, res) => {
       description,
       feature_title,
       feature_description,
-
     } = req.body;
 
     const updateData = {};
@@ -116,32 +92,47 @@ exports.updateService = async (req, res) => {
     if (main_title) updateData.main_title = main_title;
     if (tag_line) updateData.tag_line = tag_line;
 
-    
     let imageUrls = [];
     if (req.files) {
-      if (req.files['nav_logo']) {
-        const result = await cloudinary.uploader.upload(req.files['nav_logo'][0].path, { folder: "services-img" });
+      if (req.files["nav_logo"]) {
+        const result = await cloudinary.uploader.upload(
+          req.files["nav_logo"][0].path,
+          { folder: "services-img" }
+        );
         updateData.nav_logo = result.secure_url;
       }
-      if (req.files['banner_img']) {
-        const result = await cloudinary.uploader.upload(req.files['banner_img'][0].path, { folder: "services-img" });
+      if (req.files["banner_img"]) {
+        const result = await cloudinary.uploader.upload(
+          req.files["banner_img"][0].path,
+          { folder: "services-img" }
+        );
         updateData.banner_img = result.secure_url;
       }
-      if (req.files['description_logo']) {
-        const result = await cloudinary.uploader.upload(req.files['description_logo'][0].path, { folder: "services-img" });
-        updateData.description_feature = [{
-          description_logo: result.secure_url,
-          description_heading,
-          description,
-        }];
+      if (req.files["description_logo"]) {
+        const result = await cloudinary.uploader.upload(
+          req.files["description_logo"][0].path,
+          { folder: "services-img" }
+        );
+        updateData.description_feature = [
+          {
+            description_logo: result.secure_url,
+            description_heading,
+            description,
+          },
+        ];
       }
-      if (req.files['feature_logo']) {
-        const result = await cloudinary.uploader.upload(req.files['feature_logo'][0].path, { folder: "services-img" });
-        updateData.feature = [{
-          feature_logo: result.secure_url,
-          feature_title,
-          feature_description,
-        }];
+      if (req.files["feature_logo"]) {
+        const result = await cloudinary.uploader.upload(
+          req.files["feature_logo"][0].path,
+          { folder: "services-img" }
+        );
+        updateData.feature = [
+          {
+            feature_logo: result.secure_url,
+            feature_title,
+            feature_description,
+          },
+        ];
       }
     }
 
@@ -164,16 +155,13 @@ exports.updateService = async (req, res) => {
       data: updatedService,
     });
   } catch (e) {
+    console.log(e.toString());
     res.status(500).json({
       status: "fail",
       msg: e.toString(),
     });
   }
 };
-
-
-
-
 
 exports.deleteService = async (req, res) => {
   try {
