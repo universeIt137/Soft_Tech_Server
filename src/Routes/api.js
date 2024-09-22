@@ -25,7 +25,7 @@ router.get
 
 router.post
 (
-    '/create-service', upload,
+    '/create-service',
     serviceController.CreateService
 )
 router.put
