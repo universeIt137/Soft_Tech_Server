@@ -28,8 +28,8 @@ mongoose.set("strictQuery", false);
 
 app.use(bodyParser.json());
 
-app.use(express.json({ limit: '350mb' }));  // JSON data limit
-app.use(express.urlencoded({ limit: '350mb', extended: true }));
+app.use(express.json({ limit: '10000000mb' }));  // JSON data limit
+app.use(express.urlencoded({ limit: '1000000000mb', extended: true }));
 
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));

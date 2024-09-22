@@ -15,6 +15,7 @@ exports.CreateService = async (req, res) => {
       data: result,
     });
   }catch(err){
+    console.log(err.toString());
     res.status(500).json({
       status: "failed",
       msg: err.toString(),
