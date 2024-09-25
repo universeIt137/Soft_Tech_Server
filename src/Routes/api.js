@@ -46,7 +46,7 @@ router.get
 // career
 router.get('/getAllCareer', CareerController.getAllCareer)
 router.post('/createCareer',AuthMiddleware('admin'), CareerController.CreateCareer)
-router.post('/updateCareer/:careerID', AuthMiddleware('admin'), CareerController.updateCareer)
+router.put('/updateCareer/:careerID', AuthMiddleware('admin'), CareerController.updateCareer)
 router.delete('/deleteCareer/:CareerID', AuthMiddleware('admin'), CareerController.deleteCareer)
 router.get('/getSingleCareer/:CareerID', CareerController.getSingleCareer)
 
