@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const DataSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String,unique: true },
   phoneNumber: { type: String, required: true },
-  address: { type: String },
+  address: { type: String , required: true},
   linkedInProfile: { type: String },
   portfolio: { type: String },
   resume: { type: String, required: true },
   coverLetter: { type: String },
-  technicalSkills: { type: [String], required: true },
+  technicalSkills: { type: [String]},
   workExperience: [{ jobTitle: String, companyName: String, startDate: Date, endDate: Date, description: String }],
   education: [{ degree: String, institution: String, graduationYear: Number }],
   references: [{ name: String, contactInfo: String, relationship: String }],
