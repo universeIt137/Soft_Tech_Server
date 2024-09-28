@@ -7,20 +7,46 @@ const ApplicationModel = require('../../models/applicationModel')
 
 exports.applyJob = async (req, res) => {
     try {
-        let reqBody = req.body;
-        let careerId = req.params.careerId;
-        reqBody.carreerID = careerId;
+        let fullName = req.body.fullName;
+        let phoneNumber = req.body.phoneNumber;
+        let address = req.body.address;
+        let resume =req.file.filename;
 
-        let user_id = new ObjectId(req.headers.user_id);
-        reqBody.userID = user_id;
+        let applicationData = {
+            fullName,
+            phoneNumber,
+            address,
+            resume: resume
+        };
 
-        let result = await ApplicationModel.create(reqBody);
+        let result = await ApplicationModel.create(applicationData);
 
-        res.status(200).json({ status: 'Your application has been sent', data: result });
-    } catch (e) {
-        res.status(400).json({ status: 'failed', result: e.toString() });
+        res.status(201).json({
+            status: 'success',
+            msg: "Application submitted successfully",
+            data: result
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'fail',
+            msg: error.toString()
+        });
     }
 };
+
+exports.allApplications = async (req, res) => {
+    try {
+        let data = await ApplicationModel.find();
+        return res.status(200).json({
+            status: 'Success',
+            msg: 'All applications fetched successfully',
+            data: data
+        })
+    } catch (error) {
+        
+    }
+};
+
 
 exports.getApplication = async (req, res) => {
     try {
