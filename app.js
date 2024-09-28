@@ -24,7 +24,9 @@ app.use(xss());
 app.use(hpp());
 app.use(mongoSanitize());
 
-mongoose.set("strictQuery", false);
+// Serving static files
+app.use('/files', express.static(path.join(__dirname, 'files')));
+
 
 app.use(bodyParser.json());
 
@@ -36,6 +38,8 @@ app.use(express.urlencoded({ limit: '1000000000mb', extended: true }));
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000 });
 app.use(limiter);
+
+
 
 // Routing Implement
 const appRouter = require("./src/Routes/api");

@@ -28,11 +28,11 @@ router.post
     '/create-service',
     serviceController.CreateService
 )
-router.put
-(
-    '/update-service/:id', upload
-    , serviceController.updateService
-)
+// router.put
+// (
+//     '/update-service/:id', upload
+//     , serviceController.updateService
+// )
 router.delete
 (
     '/delete-service/:id',
@@ -130,7 +130,8 @@ router.get('/getProfile', AuthMiddleware('user'), UserController.getProfile)
 router.put('/UpdateUser/:id', UserController.updateUser)
 router.delete('/DeleteUser/:id', UserController.deleteUser)
 // apply job
-router.post('/applyJob/:careerId',  ApplicationController.applyJob)
+router.post('/applyJob', upload.single("resume"), ApplicationController.applyJob);
+router.get("/all-applications", ApplicationController.allApplications);
 router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)
 router.get('/getApplicationByUser' , AuthMiddleware('user'), ApplicationController.getApplicationByUser);
 // product
