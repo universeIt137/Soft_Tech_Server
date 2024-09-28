@@ -47,6 +47,29 @@ exports.allApplications = async (req, res) => {
     }
 };
 
+exports.deleteApplicationById = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let data = await ApplicationModel.findById({ _id: id });
+        if (!data) return res.status(404).send({
+            status: 'fail',
+            message: 'Application not found'
+        });
+        await ApplicationModel.findByIdAndDelete({ _id: id });
+        res.status(200).json({
+            status: 'success',
+            message: 'Application deleted successfully'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: 'fail',
+            message: error.toString()
+        });
+    }
+}
+
+
+
 
 exports.getApplication = async (req, res) => {
     try {

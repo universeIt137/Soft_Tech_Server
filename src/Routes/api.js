@@ -132,6 +132,7 @@ router.delete('/DeleteUser/:id', UserController.deleteUser)
 // apply job
 router.post('/applyJob', upload.single("resume"), ApplicationController.applyJob);
 router.get("/all-applications", ApplicationController.allApplications);
+router.delete("/delete-application/:id", ApplicationController.deleteApplicationById);
 router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)
 router.get('/getApplicationByUser' , AuthMiddleware('user'), ApplicationController.getApplicationByUser);
 // product
