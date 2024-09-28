@@ -38,7 +38,7 @@ exports.allApplications = async (req, res) => {
     try {
         let data = await ApplicationModel.find();
         return res.status(200).json({
-            status: 'Success',
+            status: 'success',
             msg: 'All applications fetched successfully',
             data: data
         })
