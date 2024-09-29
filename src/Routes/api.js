@@ -54,6 +54,7 @@ router.get('/getSingleCareer/:CareerID', CareerController.getSingleCareer)
 router.delete('/DeleteUser/:id', UserController.deleteUser)
 router.get('/Allusers', AuthMiddleware('user') ,UserController.getAllUsers)
 // application
+
 router.get('/getApplication',AuthMiddleware('admin'), ApplicationController.getApplication)
 router.get('/career/applications/:careerId' , AuthMiddleware('admin'), ApplicationController.getApplicationsByCareer);
 router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationController.deleteApplication);
@@ -130,7 +131,7 @@ router.get('/getProfile', AuthMiddleware('user'), UserController.getProfile)
 router.put('/UpdateUser/:id', UserController.updateUser)
 router.delete('/DeleteUser/:id', UserController.deleteUser)
 // apply job
-router.post('/applyJob', upload.single("resume"), ApplicationController.applyJob);
+router.post('/applyJob', ApplicationController.applyJob);
 router.get("/all-applications", ApplicationController.allApplications);
 router.delete("/delete-application/:id", ApplicationController.deleteApplicationById);
 router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)

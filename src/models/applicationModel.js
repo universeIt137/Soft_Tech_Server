@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 
 const DataSchema = new mongoose.Schema({
 
-  fullName: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
-  address: { type: String , required: true},
-  resume: { type: String, required: true },
+  fullName: { type: String },
+  phoneNumber: { type: String },
+  address: { type: String },
+  resume_link: { type: String },
+  ImageUrl: { type: String, },
+  resume: { type: String, }
 
 }, { timestamps: true, versionKey: false });
 
