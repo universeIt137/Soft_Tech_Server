@@ -6,26 +6,17 @@ const ApplicationModel = require('../../models/applicationModel')
 // apply carrer
 
 exports.applyJob = async (req, res) => {
+
+    let applicationData = req.body;
+
     try {
-        
-        let fullName = req.body.fullName;
-        let phoneNumber = req.body.phoneNumber;
-        let address = req.body.address;
-        let resume = req.file ? req.file.filename : null; 
 
-        let applicationData = {
-            fullName,
-            phoneNumber,
-            address,
-            resume : resume
-        };
-
-        let result = await ApplicationModel.create(applicationData);
-
+        let reqBody = req.body;
+        let data = await ApplicationModel.create(reqBody);
         res.status(201).json({
-            status: 'success',
-            msg: "Application submitted successfully",
-            data: result
+            status:'success',
+            msg: 'Application created successfully',
+            data: data
         });
     } catch (error) {
         res.status(500).json({
