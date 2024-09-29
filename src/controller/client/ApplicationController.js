@@ -7,16 +7,17 @@ const ApplicationModel = require('../../models/applicationModel')
 
 exports.applyJob = async (req, res) => {
     try {
+        
         let fullName = req.body.fullName;
         let phoneNumber = req.body.phoneNumber;
         let address = req.body.address;
-        let resume =req.file.filename;
+        let resume = req.file ? req.file.filename : null; 
 
         let applicationData = {
             fullName,
             phoneNumber,
             address,
-            resume: resume
+            resume : resume
         };
 
         let result = await ApplicationModel.create(applicationData);
@@ -43,7 +44,7 @@ exports.allApplications = async (req, res) => {
             data: data
         })
     } catch (error) {
-        
+
     }
 };
 
@@ -81,7 +82,7 @@ exports.getApplication = async (req, res) => {
         const UnwindUserStage = { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } };
 
         const result = await ApplicationModel.aggregate([
-           
+
             joinWithCareerStage,
             joinWithUserStage,
             UnwindCareerStage,
@@ -103,16 +104,16 @@ exports.updateApplication = async (req, res) => {
         await ApplicationModel.findOneAndUpdate(
             { _id: applicationId },
             reqBody,
-            { new: true }  );
+            { new: true });
 
         res.status(200).json({ status: 'Success', data: "Your  application has updated." });
     } catch (e) {
         res.status(400).json({ status: 'failed', result: e.toString() });
-    }   
+    }
 };
 
 
-exports.getApplicationsByCareer  = async (req, res) => {
+exports.getApplicationsByCareer = async (req, res) => {
     try {
         const careerid = req.params.careerId;
         const applications = await ApplicationModel.find({ carreerID: careerid });
@@ -125,10 +126,10 @@ exports.getApplicationsByCareer  = async (req, res) => {
 
     } catch (e) {
         res.status(400).json({ status: 'failed', result: e.toString() });
-    }   
+    }
 };
 
-exports.deleteApplication  = async (req, res) => {
+exports.deleteApplication = async (req, res) => {
     try {
         const careerid = req.params.id
         const applications = await ApplicationModel.find({ _id: careerid });
@@ -141,17 +142,17 @@ exports.deleteApplication  = async (req, res) => {
 
     } catch (e) {
         res.status(400).json({ status: 'failed', result: e.toString() });
-    }   
+    }
 };
 
 exports.getApplicationByUser = async (req, res) => {
-    try{
+    try {
         const user_id = new ObjectId(req.headers.user_id);
-        let MatchStage = {$match: {userID: user_id}}
+        let MatchStage = { $match: { userID: user_id } }
 
-        let JoinWithUserStage = { $lookup: { from: 'users',localField: 'userID', foreignField: '_id', as: 'user' }};
-        
-        let UnwindUserStage = {$unwind: '$user'}
+        let JoinWithUserStage = { $lookup: { from: 'users', localField: 'userID', foreignField: '_id', as: 'user' } };
+
+        let UnwindUserStage = { $unwind: '$user' }
 
         let result = await ApplicationModel.aggregate([
             MatchStage,
@@ -159,8 +160,8 @@ exports.getApplicationByUser = async (req, res) => {
             UnwindUserStage
 
         ])
-        res.status(200).json({status: "success", data: result})
-    }catch(err){
-        res.status(400).json({status:"fail",data:err.toString()})
+        res.status(200).json({ status: "success", data: result })
+    } catch (err) {
+        res.status(400).json({ status: "fail", data: err.toString() })
     }
 };
