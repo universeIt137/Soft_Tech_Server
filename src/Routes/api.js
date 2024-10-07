@@ -33,11 +33,11 @@ router.put
     '/update-service/:id'
     , serviceController.updateService
 );
-// router.delete
-// (
-//     '/delete-service/:id',
-//     serviceController.deleteService
-// )
+router.delete
+(
+    '/delete-service/:id',
+    serviceController.deleteService
+)
 router.get
 (
     '/get-service-by-id/:id',
