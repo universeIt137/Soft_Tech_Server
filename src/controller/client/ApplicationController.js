@@ -19,6 +19,7 @@ exports.applyJob = async (req, res) => {
             data: data
         });
     } catch (error) {
+        console.log(error.toString());
         res.status(500).json({
             status: 'fail',
             msg: error.toString()
