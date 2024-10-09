@@ -63,7 +63,7 @@ router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationCo
 router.post
 (
     '/create-product',
-    AuthMiddleware('admin'), ProductController.CreateProduct
+   ProductController.CreateProduct
 );
 router.get
 (
@@ -74,14 +74,14 @@ router.get
 router.put
 (
     '/update-product/:id',
-    AuthMiddleware('admin'),
+    
     ProductController.UpdateProduct
 );
 
 router.delete
 (
     '/delete-product/:id', 
-    AuthMiddleware('admin'),
+   
     ProductController.DeleteProduct
 );
 
@@ -99,18 +99,18 @@ router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
 router.post
 (
     "/portfolio/create", 
-    AuthMiddleware("admin"), portfolioController.createPortfolio
+     portfolioController.createPortfolio
 );
 
 router.delete(
     "/portfolio/create/:id",
-    AuthMiddleware("admin"), portfolioController.deletePortfolio
+     portfolioController.deletePortfolio
 );
 
 router.put
 (
     "/portfolio/update/:id",
-    AuthMiddleware("admin"), portfolioController.updatePortfolio
+    portfolioController.updatePortfolio
 );
 
 router.get
