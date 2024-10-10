@@ -11,6 +11,7 @@ const AuthMiddleware = require('../middleware/Authmiddilware.js');
 const upload = require("../utility/imgUtility.js");
 // portfolio controller
 const portfolioController = require("../controller/admin/portfolioController.js");
+const teamController = require('../controller/admin/teamController.js')
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
@@ -136,8 +137,14 @@ router.get("/all-applications", ApplicationController.allApplications);
 router.delete("/delete-application/:id", ApplicationController.deleteApplicationById);
 router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)
 router.get('/getApplicationByUser' , AuthMiddleware('user'), ApplicationController.getApplicationByUser);
-// product
 
+
+// team related api 
+router.post('/member', teamController.createMember);
+router.get('/member', teamController.getAllMember);
+router.get('/member/:id', teamController.singleMember);
+router.put('/member/:id', teamController.updateMember);
+router.delete('/member/:id', teamController.deleteMember);
 
 
 
