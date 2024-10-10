@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const descriptionSchema = new mongoose.Schema({
-  description_logo: { type: String, },
-  description_heading : { type: String,  },
-  description : {type : String,}
+  key_point_img: { type: String, },
+  key_point_title : { type: String,  },
+  key_point_description : {type : String,}
 }, { _id: true });
 
 const featureSchema = new mongoose.Schema({
@@ -16,11 +16,15 @@ const serviceSchema = new mongoose.Schema({
   nav_logo : {type : String,},
   nav_title: { type: String,  },
   nav_description: { type: String, },
-  main_title : {type : String},
+
+  banner_title : {type : String},
   banner_img :  {type : String,},
-  tag_line : {type : String},
-  description_feature: [descriptionSchema],
+  banner_description : {type : String},
+
+  key_point: [descriptionSchema],
+
   feature : [featureSchema]
+
 }, { timestamps: true, versionKey: false });
 
 const ServiceModel = mongoose.model('Services', serviceSchema);
