@@ -7,7 +7,7 @@ const descriptionSchema = new mongoose.Schema({
 }, { _id: true });
 
 const featureSchema = new mongoose.Schema({
-  feature_logo: { type: String, },
+  feature_img: { type: String, },
   feature_title : { type: String, },
   feature_description : {type : String,}
 }, { _id: true });
