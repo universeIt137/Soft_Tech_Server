@@ -22,7 +22,7 @@ class portfolioClass {
     try {
       let id = req.params.id;
       let filter = { _id: id };
-      let data = await portfolioModel.findOne({ _id: id });
+      let data = await portfolioModel.findById({ _id: id });
       if (!data)
         return res.status(404).json({
           status: "fail",
@@ -90,6 +90,7 @@ class portfolioClass {
       });
     }
   };
+
   singlePortfolio = async (req, res) => {
     try {
       let id = req.params.id;
@@ -111,6 +112,7 @@ class portfolioClass {
       });
     }
   };
+  
 }
 
 const portfolioController = new portfolioClass();

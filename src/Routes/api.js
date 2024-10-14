@@ -120,6 +120,8 @@ router.get
     portfolioController.getAllPortfolio
 );
 
+router.get("/single/portfolio/:id", portfolioController.singlePortfolio);
+
 
 
 // ----client api
