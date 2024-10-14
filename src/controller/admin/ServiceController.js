@@ -8,6 +8,7 @@ const ObjectId = mongoose.Types.ObjectId;
 exports.CreateService = async (req, res) => {
   try{
     const reqBody = req.body;
+    console.log(reqBody);
     const result = await ServiceModel.create(reqBody);
     res.status(201).json({
       status: "success",
