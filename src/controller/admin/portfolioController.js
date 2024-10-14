@@ -23,6 +23,7 @@ class portfolioClass {
       let id = req.params.id;
       let filter = { _id: id };
       let data = await portfolioModel.findById({ _id: id });
+      console.log(data);
       if (!data)
         return res.status(404).json({
           status: "fail",
