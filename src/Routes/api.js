@@ -104,7 +104,7 @@ router.post
 );
 
 router.delete(
-    "/portfolio/create/:id",
+    "/portfolio/delete/:id",
      portfolioController.deletePortfolio
 );
 
@@ -119,6 +119,8 @@ router.get
     "/get-all-portfolio",
     portfolioController.getAllPortfolio
 );
+
+router.get("/single/portfolio/:id", portfolioController.singlePortfolio);
 
 
 

@@ -22,7 +22,8 @@ class portfolioClass {
     try {
       let id = req.params.id;
       let filter = { _id: id };
-      let data = await portfolioModel.findOne({ _id: id });
+      let data = await portfolioModel.findById({ _id: id });
+      console.log(data);
       if (!data)
         return res.status(404).json({
           status: "fail",
@@ -90,6 +91,29 @@ class portfolioClass {
       });
     }
   };
+
+  singlePortfolio = async (req, res) => {
+    try {
+      let id = req.params.id;
+      let data = await portfolioModel.findById({ _id: id });
+      if (!data)
+        return res.status(404).json({
+          status: "fail",
+          msg: "portfolio not found ",
+        });
+      return res.status(200).json({
+        status: "success",
+        msg: "find single portfolio",
+        data: data,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: "fail",
+        msg: error.toString(),
+      });
+    }
+  };
+  
 }
 
 const portfolioController = new portfolioClass();
