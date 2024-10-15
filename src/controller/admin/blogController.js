@@ -2,7 +2,7 @@ const blogModel = require("../../models/blogModel");
 
 class BlogController {
     // Create a new blog post
-    async blogCreate(req, res, next) {
+    async blogCreate(req, res) {
         try {
             const reqBody = req.body;
             const data = await blogModel.create(reqBody);
@@ -13,7 +13,7 @@ class BlogController {
                 data: data,
             });
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 status: "fail",
                 msg: error.toString(),
             });
@@ -27,7 +27,7 @@ class BlogController {
             const id = req.params.id;
 
             const data = await blogModel.findByIdAndUpdate(
-                { _id: id },
+                id,
                 reqBody,
                 { new: true } // Returns the updated document
             );
@@ -45,7 +45,7 @@ class BlogController {
                 data: data,
             });
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 status: "fail",
                 msg: error.toString(),
             });
@@ -56,7 +56,7 @@ class BlogController {
     async blogDelete(req, res) {
         try {
             const id = req.params.id;
-            const data = await blogModel.findByIdAndDelete({ _id: id });
+            const data = await blogModel.findByIdAndDelete(id);
 
             if (!data) {
                 return res.status(404).json({
@@ -70,7 +70,58 @@ class BlogController {
                 msg: "Blog deleted successfully",
             });
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
+                status: "fail",
+                msg: error.toString(),
+            });
+        }
+    }
+
+    // Get a single blog post by ID
+    async singleBlog(req, res) {
+        try {
+            const id = req.params.id;
+            const data = await blogModel.findById(id);
+
+            if (!data) {
+                return res.status(404).json({
+                    status: "fail",
+                    msg: "Blog not found",
+                });
+            }
+
+            return res.status(200).json({
+                status: "success",
+                msg: "Blog found by ID",
+                data: data,
+            });
+        } catch (error) {
+            return res.status(500).json({
+                status: "fail",
+                msg: error.toString(),
+            });
+        }
+    }
+
+    // Get all blog posts
+    async allBlog(req, res) {
+        try {
+            const data = await blogModel.find();
+
+            if (data.length === 0) {
+                return res.status(404).json({
+                    status: "fail",
+                    msg: "Blogs not found",
+                });
+            }
+
+            return res.status(200).json({
+                status: "success",
+                msg: "All blog posts",
+                data: data,
+            });
+        } catch (error) {
+            return res.status(500).json({
                 status: "fail",
                 msg: error.toString(),
             });
