@@ -155,8 +155,8 @@ router.delete('/member/:id', teamController.deleteMember);
 router.post('/blog/create', blogController.blogCreate);
 router.put('/blog/update/:id', blogController.blogUpdate);
 router.delete('/blog/delete/:id', blogController.blogDelete);
-// router.get('/blog/single/:id', blogController.singleBlog);
-// router.put('/blog/update/:id', blogController.updateBlog);
+router.get('/blog/single/:id', blogController.singleBlog);
+router.get('/all/blog', blogController.allBlog);
 
 
 
