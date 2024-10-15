@@ -153,10 +153,10 @@ router.delete('/member/:id', teamController.deleteMember);
 // blog related api
 
 router.post('/blog/create', blogController.blogCreate);
-// router.get('/blog/getAll', blogController.getAllBlog);
+router.put('/blog/update/:id', blogController.blogUpdate);
+router.delete('/blog/delete/:id', blogController.blogDelete);
 // router.get('/blog/single/:id', blogController.singleBlog);
 // router.put('/blog/update/:id', blogController.updateBlog);
-// router.delete('/blog/delete/:id', blogController.deleteBlog);
 
 
 
