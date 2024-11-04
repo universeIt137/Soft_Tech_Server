@@ -14,6 +14,8 @@ const portfolioController = require("../controller/admin/portfolioController.js"
 const teamController = require('../controller/admin/teamController.js');
 // blog controller
 const blogController = require("../controller/admin/blogController.js");
+// category controller
+const categoryController = require("../controller/admin/categoryController.js");
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
@@ -157,6 +159,15 @@ router.put('/blog/update/:id', blogController.blogUpdate);
 router.delete('/blog/delete/:id', blogController.blogDelete);
 router.get('/blog/single/:id', blogController.singleBlog);
 router.get('/all/blog', blogController.allBlog);
+
+// category related api
+
+router.post('/category/create', categoryController.categoryCreate);
+
+// router.get('/category', careerController.allCategory);
+// router.get('/category/:id', careerController.singleCategory);
+// router.put('/category/:id', careerController.updateCategory);
+// router.delete('/category/:id', careerController.deleteCategory);
 
 
 

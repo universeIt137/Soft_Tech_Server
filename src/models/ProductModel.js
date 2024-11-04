@@ -8,6 +8,10 @@ const extraSchema = new Schema({
 },{_id : true});
 
 const productSchema = new Schema({
+    category_name : {
+        type: mongoose.Types.ObjectId,
+        ref: 'Category',
+    },
     nav_logo: { type: String,  },
     nav_title: { type: String, },
     nav_description: { type: String,  },
