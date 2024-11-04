@@ -45,3 +45,24 @@ exports.categoryUpdate = async (req, res) => {
     }
 };
 
+exports.categoryDelete = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await categoryModel.findByIdAndDelete(id);
+        if (!result)
+            return res.status(404).json({
+                status: "fail",
+                msg: "Category not found"
+            });
+        return res.status(200).json({
+            status: "success",
+            msg: "Category deleted successfully"
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: "failed",
+            msg: "Failed to delete category"
+        });
+    }
+};
