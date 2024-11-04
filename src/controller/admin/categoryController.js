@@ -66,3 +66,43 @@ exports.categoryDelete = async (req, res) => {
         });
     }
 };
+
+exports.categoryList = async (req, res) => {
+    try {
+        const result = await categoryModel.find();
+        return res.status(200).json({
+            status: "success",
+            msg: "All categories fetched successfully",
+            data: result
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: "failed",
+            msg: "Failed to fetch categories"
+        });
+    }
+};
+
+exports.categoryById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await categoryModel.findById(id);
+        if (!result)
+            return res.status(404).json({
+                status: "fail",
+                msg: "Category not found"
+            });
+        return res.status(200).json({
+            status: "success",
+            msg: "Category fetched successfully",
+            data: result
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: "failed",
+            msg: "Failed to fetch category"
+        });
+    }
+};
