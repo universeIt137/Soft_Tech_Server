@@ -66,3 +66,20 @@ exports.categoryDelete = async (req, res) => {
         });
     }
 };
+
+exports.categoryList = async (req, res) => {
+    try {
+        const result = await categoryModel.find();
+        return res.status(200).json({
+            status: "success",
+            msg: "All categories fetched successfully",
+            data: result
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: "failed",
+            msg: "Failed to fetch categories"
+        });
+    }
+};
