@@ -166,6 +166,7 @@ router.post('/category/create', categoryController.categoryCreate);
 router.put('/category/update/:id', categoryController.categoryUpdate);
 router.delete('/category/delete/:id', categoryController.categoryDelete);
 router.get('/category/list', categoryController.categoryList);
+router.get(`/category-by-id/:id`, categoryController.categoryById);
 
 
 
