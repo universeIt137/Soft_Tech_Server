@@ -163,6 +163,7 @@ router.get('/all/blog', blogController.allBlog);
 // category related api
 
 router.post('/category/create', categoryController.categoryCreate);
+router.put('/category/update/:id', categoryController.categoryUpdate);
 
 // router.get('/category', careerController.allCategory);
 // router.get('/category/:id', careerController.singleCategory);
