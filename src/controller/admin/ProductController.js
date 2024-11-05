@@ -54,7 +54,7 @@ exports.GetProducts = async (req, res) => {
 // Update Product
 exports.UpdateProduct = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = new mongoose.Types.ObjectId(req.params.id);
         const reqBody = req.body;
         let filter = { _id: id };
         let update = reqBody;
