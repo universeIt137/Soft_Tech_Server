@@ -16,6 +16,8 @@ const teamController = require('../controller/admin/teamController.js');
 const blogController = require("../controller/admin/blogController.js");
 // category controller
 const categoryController = require("../controller/admin/categoryController.js");
+// representative controller
+const representativeController = require("../controller/representativeController.js");
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
@@ -167,6 +169,14 @@ router.put('/category/update/:id', categoryController.categoryUpdate);
 router.delete('/category/delete/:id', categoryController.categoryDelete);
 router.get('/category/list', categoryController.categoryList);
 router.get(`/category-by-id/:id`, categoryController.categoryById);
+
+// representative related api
+
+router.post('/representative/create', representativeController.createRepresentative);
+// router.put('/representative/update/:id', representativeController.updateRepresentative);
+// router.delete('/representative/delete/:id', representativeController.deleteRepresentative);
+// router.get('/representative/list', representativeController.representativeList);
+// router.get(`/representative-by-id/:id`, representativeController.representativeById);
 
 
 
