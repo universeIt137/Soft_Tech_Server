@@ -55,6 +55,7 @@ exports.GetProducts = async (req, res) => {
 exports.UpdateProduct = async (req, res) => {
     try {
         const id = new mongoose.Types.ObjectId(req.params.id);
+        console.log(id);
         const reqBody = req.body;
         let filter = { _id: id };
         let update = reqBody;
@@ -73,6 +74,7 @@ exports.UpdateProduct = async (req, res) => {
         });
 
     } catch (e) {
+        console.log(e);
         res.status(400).json({ status: 'fail', error: e.message });
     }
 };
