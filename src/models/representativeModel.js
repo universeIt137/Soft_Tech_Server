@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
-
+const bcrypt = require('bcrypt');
 const representativeSchema = new Schema({
     name: {
         type: String,
@@ -8,8 +8,10 @@ const representativeSchema = new Schema({
     phone: {
         type: String,
     },
-    password: {
-        type: String,
+    password : {
+        type : String,
+        required : true,
+        set: (v) => bcrypt.hashSync(v, bcrypt.genSaltSync(10))
     },
     image: {
         type: String,
@@ -51,9 +53,12 @@ const representativeSchema = new Schema({
         default: "user"
     },
     status : {
-        type: String,
+        type: Boolean,
         enum: ["true", "false"],
         default: "false"
+    },
+    referId : {
+        type: String,
     }
 
 

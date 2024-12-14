@@ -18,6 +18,7 @@ const blogController = require("../controller/admin/blogController.js");
 const categoryController = require("../controller/admin/categoryController.js");
 // representative controller
 const representativeController = require("../controller/representativeController.js");
+const {isLogInRep } = require('../middleware/repMiddleware.js')
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
@@ -173,7 +174,11 @@ router.get(`/category-by-id/:id`, categoryController.categoryById);
 // representative related api
 
 router.post('/representative/create', representativeController.createRepresentative);
-// router.put('/representative/update/:id', representativeController.updateRepresentative);
+router.put("/representative/status-update/:id",representativeController.updateRoleRepresentative);
+router.post('/representative/login', representativeController.loginRepresentative );
+router.get('/representative/profile',isLogInRep, representativeController.repProfile );
+
+
 // router.delete('/representative/delete/:id', representativeController.deleteRepresentative);
 // router.get('/representative/list', representativeController.representativeList);
 // router.get(`/representative-by-id/:id`, representativeController.representativeById);
