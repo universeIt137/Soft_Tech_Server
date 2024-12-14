@@ -54,7 +54,7 @@ exports.GetProducts = async (req, res) => {
 // Update Product
 exports.UpdateProduct = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = new mongoose.Types.ObjectId(req.params.id);
         const reqBody = req.body;
         let filter = { _id: id };
         let update = reqBody;
@@ -104,8 +104,9 @@ exports.DeleteProduct = async (req, res) => {
 
 exports.singleProductById = async (req, res) => {
     try {
-        let id = new mongoose.Types.ObjectId(req.params.id) ;
-        const matchStage = { $match : { _id : id } };
+        let id = new mongoose.Types.ObjectId(req.params.id);
+        const matchStage = { $match: { _id: id } };
+        
         // join with category id
         const joinWithCategoryId = {
             $lookup: {
@@ -115,25 +116,33 @@ exports.singleProductById = async (req, res) => {
                 as: "category"
             }
         };
-        //unwind category
+        
+        // unwind category
         const unwindCategory = {
             $unwind: {
                 path: "$category",
+                preserveNullAndEmptyArrays: true // Optional: to keep the product even if no category found
             }
         };
+
         const data = await ProductModel.aggregate([
             matchStage,
             joinWithCategoryId,
             unwindCategory
         ]);
-        if (!data) return res.status(404).json({
-            status: "fail",
-            msg: "Product not found"
-        });
+
+        if (data.length === 0) {
+            return res.status(404).json({
+                status: "fail",
+                msg: "Product not found"
+            });
+        }
+
+        // Since data is an array, we take the first element
         return res.status(200).json({
             status: "success",
-            msg: "Product find by id",
-            data: data
+            msg: "Product found by id",
+            data: data[0] // Return the first object
         });
     } catch (error) {
         return res.status(500).json({
@@ -141,4 +150,4 @@ exports.singleProductById = async (req, res) => {
             msg: error.toString()
         });
     }
-}
+};
