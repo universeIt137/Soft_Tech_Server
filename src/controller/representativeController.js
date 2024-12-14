@@ -120,11 +120,25 @@ const repUpdateProfile = async (req,res)=>{
     }
 }
 
+const deleteRepresentative = async (req,res)=>{
+    try {
+        const id = req.params.id;
+        const representative = await representativeModel.findByIdAndDelete(id);
+        if (!representative) {
+            return errorResponse(res, 404, "Representative not found")
+        }
+        return successResponse(res, 200, "Representative deleted successfully", representative);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+}
+
 
 module.exports = {
     createRepresentative,
     loginRepresentative,
     repProfile,
     updateRoleRepresentative,
-    repUpdateProfile
+    repUpdateProfile,
+    deleteRepresentative
 }

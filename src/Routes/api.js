@@ -174,9 +174,10 @@ router.get(`/category-by-id/:id`, categoryController.categoryById);
 // representative related api
 
 router.post('/representative/create', representativeController.createRepresentative);
-router.put("/representative/status-update/:id",representativeController.updateRoleRepresentative);
+router.put("/representative/status-update/:id", AuthMiddleware("admin") ,representativeController.updateRoleRepresentative);
 router.post('/representative/login', representativeController.loginRepresentative );
 router.get('/representative/profile',isLogInRep, representativeController.repProfile );
+router.delete('/representative/delete/:id',AuthMiddleware("admin") , representativeController.deleteRepresentative);
 
 
 // router.delete('/representative/delete/:id', representativeController.deleteRepresentative);
