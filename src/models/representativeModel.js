@@ -7,11 +7,13 @@ const representativeSchema = new Schema({
     },
     phone: {
         type: String,
+        unique: true, // Keep unique for phone numbers
+        required: true,
     },
-    password : {
-        type : String,
-        required : true,
-        set: (v) => bcrypt.hashSync(v, bcrypt.genSaltSync(10))
+    password: {
+        type: String,
+        required: true,
+        set: (v) => bcrypt.hashSync(v, bcrypt.genSaltSync(10)),
     },
     image: {
         type: String,
@@ -25,10 +27,10 @@ const representativeSchema = new Schema({
     upazila: {
         type: String,
     },
-    address : {
+    address: {
         type: String,
     },
-    education : [
+    education: [
         {
             nameOfDegree: {
                 type: String,
@@ -38,32 +40,38 @@ const representativeSchema = new Schema({
             },
             year: {
                 type: Number,
-            }
-        }
+            },
+        },
     ],
-    nidNumber : {
+    nidNumber: {
         type: String,
     },
-    experience : {
+    experience: {
         type: String,
     },
-    role : {
+    role: {
         type: String,
         enum: ["user", "representative"],
-        default: "user"
+        default: "user",
     },
-    status : {
+    status: {
         type: Boolean,
-        enum: ["true", "false"],
-        default: "false"
+        default: false,
     },
-    referId : {
+    referUserId : {
+        type : mongoose.Schema.ObjectId,
+        ref: 'users',
+    },
+    referNumber: {
         type: String,
-    }
-
+    },
+    referenceId: {
+        type: String,
+    },
 
 }, {
-    timestamps: true, versionKey: false
+    timestamps: true,
+    versionKey: false,
 });
 
 const representativeModel = model('representatives', representativeSchema);
