@@ -18,7 +18,7 @@ const blogController = require("../controller/admin/blogController.js");
 const categoryController = require("../controller/admin/categoryController.js");
 // representative controller
 const representativeController = require("../controller/representativeController.js");
-const {isLogInRep } = require('../middleware/repMiddleware.js')
+const {isLogInRep, isRep } = require('../middleware/repMiddleware.js')
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
@@ -178,11 +178,10 @@ router.put("/representative/status-update/:id", AuthMiddleware("admin") ,represe
 router.post('/representative/login', representativeController.loginRepresentative );
 router.get('/representative/profile',isLogInRep, representativeController.repProfile );
 router.delete('/representative/delete/:id',AuthMiddleware("admin") , representativeController.deleteRepresentative);
+router.get('/representative',AuthMiddleware("admin"),representativeController.allRepresentatives);
+router.get("/representative/valid",AuthMiddleware("admin"),representativeController.validRepresentatives);
+router.get("/representative/by-referid", isLogInRep,representativeController.representativesByReferNumber);
 
-
-// router.delete('/representative/delete/:id', representativeController.deleteRepresentative);
-// router.get('/representative/list', representativeController.representativeList);
-// router.get(`/representative-by-id/:id`, representativeController.representativeById);
 
 
 
