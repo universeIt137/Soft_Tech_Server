@@ -99,6 +99,7 @@ const loginRepresentative = async (req, res) => {
     }
 };
 
+
 const repProfile = async (req, res) => {
     try {
         const id = req.headers.id;
@@ -115,6 +116,7 @@ const repProfile = async (req, res) => {
     }
 };
 
+
 const repUpdateProfile = async (req, res) => {
     try {
         const id = req.headers.id;
@@ -125,6 +127,7 @@ const repUpdateProfile = async (req, res) => {
         return errorResponse(res, 500, "something went wrong", error);
     }
 };
+
 
 const deleteRepresentative = async (req, res) => {
     try {
@@ -139,6 +142,7 @@ const deleteRepresentative = async (req, res) => {
     }
 };
 
+
 const allRepresentatives = async (req, res) => {
     try {
         const representatives = await representativeModel.find().sort({ createdAt: -1 });
@@ -147,6 +151,7 @@ const allRepresentatives = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
+
 
 const validRepresentatives = async (req, res) => {
     try {
@@ -160,6 +165,7 @@ const validRepresentatives = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
+
 
 const representativesByReferNumber = async (req, res) => {
     const id = req.headers.id;
