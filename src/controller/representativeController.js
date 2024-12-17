@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
 
 const createRepresentative = async (req, res) => {
     try {
-        const { phone, password, confirmPassword, referenceId,referUserId, ...otherDetails } = req.body;
+        const { phone, password, confirmPassword, referenceId, referUserId, ...otherDetails } = req.body;
         const randomReferNumber = Math.floor(100000 + Math.random() * 900000);
         const repId = req.headers.repId;
-        
+
 
         // Check if the phone number is already in use
         const existingRepresentative = await representativeModel.findOne({ phone });
@@ -32,15 +32,50 @@ const createRepresentative = async (req, res) => {
             password,
             referNumber: randomReferNumber,
             referenceId: referenceId ? referenceId : randomReferNumber,
-            referUserId : repId ? repId : "",
+            referUserId: repId ? repId : "",
 
         });
 
-        return successResponse(res, 201, "User created successfully", data);
+        const token = jwt.sign({ id: data._id, role: data.role, phone: data.phone }, process.env.RE_JWT_SECRET, { expiresIn: '10d' });
+
+        return successResponse(res, 201, "User created successfully", {
+            data, token
+        });
     } catch (error) {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
+
+
+const registrationStepTwo = async (req, res) => {
+    try {
+        // Extract and validate the request body
+        const { body: update } = req;
+
+        if (!update || Object.keys(update).length === 0) {
+            return errorResponse(res, 400, "Invalid request. Update data is required.");
+        }
+
+        // Update the representative's profile
+        const data = await representativeModel.updateOne(update);
+
+        if (!data) {
+            return errorResponse(res, 404, "Profile not found or could not be updated.");
+        }
+
+
+
+        // Return a success response
+        return successResponse(res, 200, "Profile updated successfully", data);
+    } catch (error) {
+        // Log the error for debugging (if a logging system is available)
+        console.error("Error updating profile:", error);
+
+        // Return a generic error response
+        return errorResponse(res, 500, "An internal server error occurred.");
+    }
+};
+
 
 
 const updateRoleRepresentative = async (req, res) => {
@@ -174,7 +209,7 @@ const representativesByReferNumber = async (req, res) => {
     const id = req.headers.id;
     try {
         const filter = {
-            referUserId :id,
+            referUserId: id,
             role: "representative",
             status: true
         };
@@ -199,5 +234,6 @@ module.exports = {
     deleteRepresentative,
     allRepresentatives,
     validRepresentatives,
-    representativesByReferNumber
+    representativesByReferNumber,
+    registrationStepTwo
 }
