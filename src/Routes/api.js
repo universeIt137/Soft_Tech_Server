@@ -181,6 +181,7 @@ router.delete('/representative/delete/:id',AuthMiddleware("admin") , representat
 router.get('/representative',AuthMiddleware("admin"),representativeController.allRepresentatives);
 router.get("/representative/valid",AuthMiddleware("admin"),representativeController.validRepresentatives);
 router.get("/representative/by-referid", isLogInRep,representativeController.representativesByReferNumber);
+router.put("/representative/step-two", representativeController.registrationStepTwo);
 
 
 
