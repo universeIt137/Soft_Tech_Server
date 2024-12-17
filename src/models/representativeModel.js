@@ -33,7 +33,7 @@ const representativeSchema = new Schema({
             nameOfDegree: {
                 type: String,
             },
-            certificate: {
+            institute: {
                 type: String,
             },
             year: {

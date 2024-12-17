@@ -39,7 +39,7 @@ const createRepresentative = async (req, res) => {
         const token = jwt.sign({ id: data._id, role: data.role, phone: data.phone }, process.env.RE_JWT_SECRET, { expiresIn: '10d' });
 
         return successResponse(res, 201, "User created successfully", {
-            data, token
+            data, token,
         });
     } catch (error) {
         return errorResponse(res, 500, "Something went wrong", error);
@@ -49,21 +49,19 @@ const createRepresentative = async (req, res) => {
 
 const registrationStepTwo = async (req, res) => {
     try {
-        // Extract and validate the request body
-        const { body: update } = req;
-
-        if (!update || Object.keys(update).length === 0) {
-            return errorResponse(res, 400, "Invalid request. Update data is required.");
-        }
+        let id = req.headers.regId;
+        let filter = {
+            _id : id
+        };
+        console.log(id);
+        const reqBody = req.body;
 
         // Update the representative's profile
-        const data = await representativeModel.updateOne(update);
+        const data = await representativeModel.findByIdAndUpdate(filter,reqBody,{new:true});
 
         if (!data) {
             return errorResponse(res, 404, "Profile not found or could not be updated.");
         }
-
-
 
         // Return a success response
         return successResponse(res, 200, "Profile updated successfully", data);
