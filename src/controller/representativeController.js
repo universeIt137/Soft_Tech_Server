@@ -7,8 +7,10 @@ const jwt = require('jsonwebtoken');
 
 const createRepresentative = async (req, res) => {
     try {
-        const { phone, password, confirmPassword, referenceId, ...otherDetails } = req.body;
+        const { phone, password, confirmPassword, referenceId,referUserId, ...otherDetails } = req.body;
         const randomReferNumber = Math.floor(100000 + Math.random() * 900000);
+        const repId = req.headers.repId;
+        
 
         // Check if the phone number is already in use
         const existingRepresentative = await representativeModel.findOne({ phone });
@@ -30,6 +32,7 @@ const createRepresentative = async (req, res) => {
             password,
             referNumber: randomReferNumber,
             referenceId: referenceId ? referenceId : randomReferNumber,
+            referUserId : repId ? repId : "",
 
         });
 
@@ -102,7 +105,7 @@ const loginRepresentative = async (req, res) => {
 
 const repProfile = async (req, res) => {
     try {
-        const id = req.headers.id;
+        const id = req.headers.repId;
         console.log(id);
         const filter = {
             _id: id,
@@ -119,7 +122,7 @@ const repProfile = async (req, res) => {
 
 const repUpdateProfile = async (req, res) => {
     try {
-        const id = req.headers.id;
+        const id = req.headers.repId;
         const update = req.body;
         const representative = await representativeModel.findByIdAndUpdate(id, update, { new: true });
         return successResponse(res, 200, "Profile updated successfully", representative);

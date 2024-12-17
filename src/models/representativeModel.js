@@ -8,11 +8,9 @@ const representativeSchema = new Schema({
     phone: {
         type: String,
         unique: true, // Keep unique for phone numbers
-        required: true,
     },
     password: {
         type: String,
-        required: true,
         set: (v) => bcrypt.hashSync(v, bcrypt.genSaltSync(10)),
     },
     image: {
@@ -59,7 +57,7 @@ const representativeSchema = new Schema({
         default: false,
     },
     referUserId : {
-        type : mongoose.Schema.ObjectId,
+        type : String,
         ref: 'users',
     },
     referNumber: {

@@ -15,7 +15,7 @@ const isLogInRep = (req, res, next) => {
     
         const role = decode.role;
         const phone = decode.phone;
-        req.headers.id = id;
+        req.headers.repId = id;
         req.headers.role = role;
         req.headers.phone = phone;
         if (!decode) {
