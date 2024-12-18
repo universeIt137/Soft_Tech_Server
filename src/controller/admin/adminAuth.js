@@ -6,22 +6,22 @@ const jwt = require('jsonwebtoken');
 
 exports.CreateAdmin = async (req, res) => {
     try {
-        const { name, email,password, contactNumber, profilePhoto } = req.body;
-        console.log(name,email);
+        const { name, contactNumber,password, profilePhoto } = req.body;
+        console.log(name,contactNumber);
 
         // Validate input
-        if (!name || !email || !password) {
-            return res.status(400).json({ status: "Failed", data: "Please provide name, email, and password" });
+        if (!name || !contactNumber || !password) {
+            return res.status(400).json({ status: "Failed", data: "Please provide name, contactNumber, and password" });
         }
 
         // Check if admin user already exists
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.findOne({ contactNumber });
         if (user) {
-            return res.status(400).json({ status: "Failed", data: "Admin user with this email already exists" });
+            return res.status(400).json({ status: "Failed", data: "Admin user with this contactNumber already exists" });
         }
         const newAdmin = new UserModel({
             name,
-            email,
+            contactNumber,
             password, 
             contactNumber,
             profilePhoto,
@@ -44,22 +44,22 @@ exports.CreateAdmin = async (req, res) => {
 
 exports.Adminlogin = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { contactNumber, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json({ status: "Failed", data: "Please provide both email and password" });
+        if (!contactNumber || !password) {
+            return res.status(400).json({ status: "Failed", data: "Please provide both contactNumber and password" });
         }
 
-        // Find the user by email
-        const user = await UserModel.findOne({ email });
+        // Find the user by contactNumber
+        const user = await UserModel.findOne({ contactNumber });
 
         if (!user) {
-            return res.status(400).json({ status: "Failed", data: "Invalid email or password" });
+            return res.status(400).json({ status: "Failed", data: "Invalid contactNumber or password" });
         }
 
         // Check if the password matches
         if (user.password !== password) {
-            return res.status(400).json({ status: "Failed", data: "Invalid email or password" });
+            return res.status(400).json({ status: "Failed", data: "Invalid contactNumber or password" });
         }
 
         // Check if the role is 'admin'
@@ -67,7 +67,7 @@ exports.Adminlogin = async (req, res) => {
             return res.status(403).json({ status: "Failed", data: "Access denied. Admins only." });
         }
 
-        const token = EncodeToken(email, user._id.toString(), "admin" );
+        const token = EncodeToken(contactNumber, user._id.toString(), "admin" );
 
         let CookieOption = { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), httpOnly: false };
 
