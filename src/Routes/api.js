@@ -6,7 +6,7 @@ const UserController = require('../controller/client/UserController.js')
 const ProductController = require('../controller/admin/ProductController.js')
 const ApplicationController = require('../controller/client/ApplicationController.js')
 const AdminController = require('../controller/admin/adminAuth.js')
-const AuthMiddleware = require('../middleware/Authmiddilware.js');
+const {isAdmin,isLogin} = require('../middleware/Authmiddilware.js');
 // img utility
 const upload = require("../utility/imgUtility.js");
 // portfolio controller
@@ -24,7 +24,7 @@ const { isLogReg } = require('../middleware/registerMiddleware.js')
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
-router.get('/getAdminProfile', AuthMiddleware('admin'), AdminController.getAdminProfile)
+router.get('/getAdminProfile', isLogin,isAdmin, AdminController.getAdminProfile)
 //  service
 router.get
 (
@@ -54,19 +54,19 @@ router.get
 )
 // career
 router.get('/getAllCareer', CareerController.getAllCareer)
-router.post('/createCareer',AuthMiddleware('admin'), CareerController.CreateCareer)
-router.put('/updateCareer/:careerID', AuthMiddleware('admin'), CareerController.updateCareer)
-router.delete('/deleteCareer/:CareerID', AuthMiddleware('admin'), CareerController.deleteCareer)
+router.post('/createCareer',isLogin,isAdmin, CareerController.CreateCareer)
+router.put('/updateCareer/:careerID', isLogin,isAdmin, CareerController.updateCareer)
+router.delete('/deleteCareer/:CareerID', isLogin,isAdmin, CareerController.deleteCareer)
 router.get('/getSingleCareer/:CareerID', CareerController.getSingleCareer)
 
 // user 
 router.delete('/DeleteUser/:id', UserController.deleteUser)
-router.get('/Allusers', AuthMiddleware('user') ,UserController.getAllUsers)
+router.get('/Allusers', isLogin ,UserController.getAllUsers)
 // application
 
-router.get('/getApplication',AuthMiddleware('admin'), ApplicationController.getApplication)
-router.get('/career/applications/:careerId' , AuthMiddleware('admin'), ApplicationController.getApplicationsByCareer);
-router.delete('/deleteApplications/:id' , AuthMiddleware('admin'), ApplicationController.deleteApplication);
+router.get('/getApplication',isLogin,isAdmin, ApplicationController.getApplication)
+router.get('/career/applications/:careerId' , isLogin,isAdmin, ApplicationController.getApplicationsByCareer);
+router.delete('/deleteApplications/:id' , isLogin,isAdmin, ApplicationController.deleteApplication);
 
 // product controller
 router.post
@@ -138,15 +138,15 @@ router.get("/single/portfolio/:id", portfolioController.singlePortfolio);
 router.post('/CreateUser', UserController.CreateUser)
 router.post('/EmailVerify/:email/:otp', UserController.EmailVerify)
 router.post('/login', UserController.login)
-router.get('/getProfile', AuthMiddleware('user'), UserController.getProfile)
+router.get('/getProfile', isLogin, UserController.getProfile)
 router.put('/UpdateUser/:id', UserController.updateUser)
 router.delete('/DeleteUser/:id', UserController.deleteUser)
 // apply job
 router.post('/applyJob', ApplicationController.applyJob);
 router.get("/all-applications", ApplicationController.allApplications);
 router.delete("/delete-application/:id", ApplicationController.deleteApplicationById);
-router.put('/updateApplication/:id',AuthMiddleware('user'), ApplicationController.updateApplication)
-router.get('/getApplicationByUser' , AuthMiddleware('user'), ApplicationController.getApplicationByUser);
+router.put('/updateApplication/:id',isLogin, ApplicationController.updateApplication)
+router.get('/getApplicationByUser' , isLogin, ApplicationController.getApplicationByUser);
 
 
 // team related api 
@@ -175,12 +175,12 @@ router.get(`/category-by-id/:id`, categoryController.categoryById);
 // representative related api
 
 router.post('/representative/create', representativeController.createRepresentative);
-router.put("/representative/status-update/:id", AuthMiddleware("admin") ,representativeController.updateRoleRepresentative);
+router.put("/representative/status-update/:id", isLogin,isAdmin ,representativeController.updateRoleRepresentative);
 router.post('/representative/login', representativeController.loginRepresentative );
 router.get('/representative/profile',isLogInRep, representativeController.repProfile );
-router.delete('/representative/delete/:id',AuthMiddleware("admin") , representativeController.deleteRepresentative);
-router.get('/representative',AuthMiddleware("admin"),representativeController.allRepresentatives);
-router.get("/representative/valid",AuthMiddleware("admin"),representativeController.validRepresentatives);
+router.delete('/representative/delete/:id',isLogin,isAdmin , representativeController.deleteRepresentative);
+router.get('/representative',isLogin,isAdmin,representativeController.allRepresentatives);
+router.get("/representative/valid",isLogin,isAdmin,representativeController.validRepresentatives);
 router.get("/representative/by-referid", isLogInRep,representativeController.representativesByReferNumber);
 router.put("/representative/step-two", isLogReg,representativeController.registrationStepTwo);
 
