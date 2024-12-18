@@ -66,6 +66,9 @@ const representativeSchema = new Schema({
     referenceId: {
         type: String,
     },
+    representative_id : {
+        type : String,
+    }
 
 }, {
     timestamps: true,

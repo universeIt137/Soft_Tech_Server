@@ -1,8 +1,8 @@
+const { default: mongoose } = require("mongoose");
 const representativeModel = require("../models/representativeModel");
 const { errorResponse, successResponse } = require("../utility/response");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 
 
 const createRepresentative = async (req, res) => {
@@ -51,13 +51,13 @@ const registrationStepTwo = async (req, res) => {
     try {
         let id = req.headers.regId;
         let filter = {
-            _id : id
+            _id: id
         };
         console.log(id);
         const reqBody = req.body;
 
         // Update the representative's profile
-        const data = await representativeModel.findByIdAndUpdate(filter,reqBody,{new:true});
+        const data = await representativeModel.findByIdAndUpdate(filter, reqBody, { new: true });
 
         if (!data) {
             return errorResponse(res, 404, "Profile not found or could not be updated.");
@@ -77,30 +77,79 @@ const registrationStepTwo = async (req, res) => {
 
 
 const updateRoleRepresentative = async (req, res) => {
+    const { representative } = req.body;
+
     try {
-        const id = req.params.id
+        const id = req.params.id;
+
+        // Ensure _id is an ObjectId
         const filter = {
             _id: id,
             status: false,
             role: "user"
         };
-        const update = {
-            status: true,
-            role: "representative"
-        };
 
-        const result = await representativeModel.findByIdAndUpdate(filter, update, { new: true });
+        // Check if user exists with the given filter
+        const user = await representativeModel.findOne(filter);
 
-        if (!result) {
-            return errorResponse(res, 404, "Representative not found")
+        if (!user) {
+            return res.status(404).send({ success: false, message: "User not found or already updated." });
         }
 
-        return successResponse(res, 200, "Representative role updated successfully", result);
+        // Check if the user already has a representative_id
+        if (user.representative_id) {
+            // Update only the role and status if representative_id already exists
+            const result = await representativeModel.updateOne(filter, {
+                $set: {
+                    status: true,
+                    role: "representative"
+                }
+            });
 
+            return res.send({
+                success: true,
+                message: "Representative role updated, ID remains unchanged.",
+                result
+            });
+        }
 
+        // If no representative_id exists, generate a new one
+        const lastRep = await representativeModel
+            .find({ representative_id: { $exists: true } })
+            .sort({ representative_id: -1 })
+            .limit(1);
+
+        // Generate new representative_id
+        let newRepId = "REP-001"; // Default ID
+        if (lastRep.length > 0) {
+            const lastId = lastRep[0].representative_id;
+            const idNumber = parseInt(lastId.split('-')[1]);
+            newRepId = `REP-${String(idNumber + 1).padStart(3, '0')}`;
+        }
+
+        // Update user with the new representative_id
+        const updateTwo = {
+            status: true,
+            role: "representative",
+            representative_id: newRepId,
+            representative
+        };
+
+        const result = await representativeModel.updateOne(filter, { $set: updateTwo });
+
+        return res.send({
+            success: true,
+            message: "Representative role and ID successfully updated.",
+            result
+        });
 
     } catch (error) {
-        return errorResponse(res, 500, "Something went wrong", error);
+        console.error("Error updating representative role:", error);
+        return res.status(500).send({
+            success: false,
+            message: "Something went wrong",
+            error: error.message
+        });
     }
 };
 
