@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
 
 exports.CreateAdmin = async (req, res) => {
     try {
-        const { name, contactNumber,password, profilePhoto } = req.body;
-        console.log(name,contactNumber);
+        const { name, contactNumber, password, profilePhoto, email } = req.body;
+        console.log(name, contactNumber);
 
         // Validate input
         if (!name || !contactNumber || !password) {
@@ -22,10 +22,11 @@ exports.CreateAdmin = async (req, res) => {
         const newAdmin = new UserModel({
             name,
             contactNumber,
-            password, 
+            password,
             contactNumber,
             profilePhoto,
-            role: 'admin' 
+            role: 'admin',
+            email: email
         });
 
         await newAdmin.save()
@@ -67,7 +68,7 @@ exports.Adminlogin = async (req, res) => {
             return res.status(403).json({ status: "Failed", data: "Access denied. Admins only." });
         }
 
-        const token = EncodeToken(contactNumber, user._id.toString(), "admin" );
+        const token = EncodeToken(contactNumber, user._id.toString(), "admin");
 
         let CookieOption = { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), httpOnly: false };
 
@@ -80,10 +81,10 @@ exports.Adminlogin = async (req, res) => {
 };
 exports.getAdminProfile = async (req, res) => {
     try {
-       
+
         let user_id = req.headers.user_id
-        let result = await UserModel.findOne({_id: user_id})
-        res.status(200).json({status: "success",  data: result})
+        let result = await UserModel.findOne({ _id: user_id })
+        res.status(200).json({ status: "success", data: result })
     } catch (e) {
         res.status(500).json({ status: 'Failed', data: e.toString() });
     }
