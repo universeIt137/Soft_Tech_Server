@@ -1,3 +1,4 @@
+const { successResponse, errorResponse } = require('../../utility/response');
 const { EncodeToken, AdminEncodeToken } = require('../../utility/TokenHelper');
 const UserModel = require('./../../models/UserModel')
 require('dotenv').config()
@@ -90,4 +91,55 @@ exports.getAdminProfile = async (req, res) => {
 };
 
 
+exports.allUsers = async (req, res) => {
+    try {
+        let result = await UserModel.find()
+        return successResponse(res, 200, "All Users find successfully", result)
+    } catch (e) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
 
+
+exports.statusUpdate = async (req, res) => {
+    try {
+        const id = req.params.id; // Extract user ID from request parameters
+
+        // Find the user by ID
+        const user = await UserModel.findById(id);
+        if (!user) {
+            return errorResponse(res, 404, "User not found", null);
+        }
+
+        // Toggle status and role
+        const userStatus = user.isAdmin === false ? true : false; // Toggle status
+        const userRole = user.role === "admin" ? "user" : "admin"; // Toggle role
+
+        // Update the user
+        const update = {
+            isAdmin: userStatus,
+            role: userRole,
+        };
+
+        const updatedUser = await UserModel.findByIdAndUpdate(id, update, { new: true });
+
+        // Respond with the updated user
+        return successResponse(res, 200, "Status updated successfully", updatedUser);
+    } catch (error) {
+        console.error("Error updating user status:", error);
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
+exports.singleUserById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await UserModel.findById(id);
+        if (!user) {
+            return errorResponse(res, 404, "User not found", null);
+        }
+        return successResponse(res, 200, "User fetched successfully", user);
+    } catch (e) {
+        return errorResponse(res, 500, "Something went wrong", e.toString());
+    }
+}

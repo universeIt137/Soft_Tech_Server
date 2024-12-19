@@ -6,7 +6,7 @@ const UserController = require('../controller/client/UserController.js')
 const ProductController = require('../controller/admin/ProductController.js')
 const ApplicationController = require('../controller/client/ApplicationController.js')
 const AdminController = require('../controller/admin/adminAuth.js')
-const {isAdmin,isLogin} = require('../middleware/Authmiddilware.js');
+const { isAdmin, isLogin } = require('../middleware/Authmiddilware.js');
 // img utility
 const upload = require("../utility/imgUtility.js");
 // portfolio controller
@@ -18,87 +18,90 @@ const blogController = require("../controller/admin/blogController.js");
 const categoryController = require("../controller/admin/categoryController.js");
 // representative controller
 const representativeController = require("../controller/representativeController.js");
-const {isLogInRep, isRep } = require('../middleware/repMiddleware.js')
+const { isLogInRep, isRep } = require('../middleware/repMiddleware.js')
 const { isLogReg } = require('../middleware/registerMiddleware.js')
 
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
-router.get('/getAdminProfile', isLogin,isAdmin, AdminController.getAdminProfile)
+router.get('/getAdminProfile', isLogin, isAdmin, AdminController.getAdminProfile);
+router.get("/all-users", isLogin, isAdmin, AdminController.allUsers);
+router.put("/status-update/:id", isLogin, isAdmin, AdminController.statusUpdate);
+router.get("/single-user/:id", isLogin, isAdmin, AdminController.singleUserById);
 //  service
 router.get
-(
-    '/get-all-service',
-    serviceController.getAllService
-)
+    (
+        '/get-all-service',
+        serviceController.getAllService
+    )
 
 router.post
-(
-    '/create-service',
-    serviceController.CreateService
-)
+    (
+        '/create-service',
+        serviceController.CreateService
+    )
 router.put
-(
-    '/update-service/:id'
-    , serviceController.updateService
-);
+    (
+        '/update-service/:id'
+        , serviceController.updateService
+    );
 router.delete
-(
-    '/delete-service/:id',
-    serviceController.deleteService
-)
+    (
+        '/delete-service/:id',
+        serviceController.deleteService
+    )
 router.get
-(
-    '/get-service-by-id/:id',
-    serviceController.getServiceById
-)
+    (
+        '/get-service-by-id/:id',
+        serviceController.getServiceById
+    )
 // career
 router.get('/getAllCareer', CareerController.getAllCareer)
-router.post('/createCareer',isLogin,isAdmin, CareerController.CreateCareer)
-router.put('/updateCareer/:careerID', isLogin,isAdmin, CareerController.updateCareer)
-router.delete('/deleteCareer/:CareerID', isLogin,isAdmin, CareerController.deleteCareer)
+router.post('/createCareer', isLogin, isAdmin, CareerController.CreateCareer)
+router.put('/updateCareer/:careerID', isLogin, isAdmin, CareerController.updateCareer)
+router.delete('/deleteCareer/:CareerID', isLogin, isAdmin, CareerController.deleteCareer)
 router.get('/getSingleCareer/:CareerID', CareerController.getSingleCareer)
 
 // user 
 router.delete('/DeleteUser/:id', UserController.deleteUser)
-router.get('/Allusers', isLogin ,UserController.getAllUsers)
+router.get('/Allusers', isLogin, UserController.getAllUsers)
 // application
 
-router.get('/getApplication',isLogin,isAdmin, ApplicationController.getApplication)
-router.get('/career/applications/:careerId' , isLogin,isAdmin, ApplicationController.getApplicationsByCareer);
-router.delete('/deleteApplications/:id' , isLogin,isAdmin, ApplicationController.deleteApplication);
+router.get('/getApplication', isLogin, isAdmin, ApplicationController.getApplication)
+router.get('/career/applications/:careerId', isLogin, isAdmin, ApplicationController.getApplicationsByCareer);
+router.delete('/deleteApplications/:id', isLogin, isAdmin, ApplicationController.deleteApplication);
 
 // product controller
 router.post
-(
-    '/create-product',
-   ProductController.CreateProduct
-);
+    (
+        '/create-product',
+        ProductController.CreateProduct
+    );
 router.get
-(
-    '/get-products',
-    ProductController.GetProducts
-);
+    (
+        '/get-products',
+        ProductController.GetProducts
+    );
 
 router.put
-(
-    '/update-product/:id',
-    
-    ProductController.UpdateProduct
-);
+    (
+        '/update-product/:id',
+
+        ProductController.UpdateProduct
+    );
 
 router.delete
-(
-    '/delete-product/:id', 
-   
-    ProductController.DeleteProduct
-);
+    (
+        '/delete-product/:id',
+
+        ProductController.DeleteProduct
+    );
 
 router.get
-(
-    "/single-product/:id",
-    ProductController.singleProductById
-)
+    (
+        "/single-product/:id",
+        ProductController.singleProductById
+    )
 
 router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
@@ -106,27 +109,27 @@ router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
 // portfolio api
 
 router.post
-(
-    "/portfolio/create", 
-     portfolioController.createPortfolio
-);
+    (
+        "/portfolio/create",
+        portfolioController.createPortfolio
+    );
 
 router.delete(
     "/portfolio/delete/:id",
-     portfolioController.deletePortfolio
+    portfolioController.deletePortfolio
 );
 
 router.put
-(
-    "/portfolio/update/:id",
-    portfolioController.updatePortfolio
-);
+    (
+        "/portfolio/update/:id",
+        portfolioController.updatePortfolio
+    );
 
 router.get
-(
-    "/get-all-portfolio",
-    portfolioController.getAllPortfolio
-);
+    (
+        "/get-all-portfolio",
+        portfolioController.getAllPortfolio
+    );
 
 router.get("/single/portfolio/:id", portfolioController.singlePortfolio);
 
@@ -145,8 +148,8 @@ router.delete('/DeleteUser/:id', UserController.deleteUser)
 router.post('/applyJob', ApplicationController.applyJob);
 router.get("/all-applications", ApplicationController.allApplications);
 router.delete("/delete-application/:id", ApplicationController.deleteApplicationById);
-router.put('/updateApplication/:id',isLogin, ApplicationController.updateApplication)
-router.get('/getApplicationByUser' , isLogin, ApplicationController.getApplicationByUser);
+router.put('/updateApplication/:id', isLogin, ApplicationController.updateApplication)
+router.get('/getApplicationByUser', isLogin, ApplicationController.getApplicationByUser);
 
 
 // team related api 
@@ -175,14 +178,15 @@ router.get(`/category-by-id/:id`, categoryController.categoryById);
 // representative related api
 
 router.post('/representative/create', representativeController.createRepresentative);
-router.put("/representative/status-update/:id", isLogin,isAdmin ,representativeController.updateRoleRepresentative);
-router.post('/representative/login', representativeController.loginRepresentative );
-router.get('/representative/profile',isLogInRep, representativeController.repProfile );
-router.delete('/representative/delete/:id',isLogin,isAdmin , representativeController.deleteRepresentative);
-router.get('/representative',isLogin,isAdmin,representativeController.allRepresentatives);
-router.get("/representative/valid",isLogin,isAdmin,representativeController.validRepresentatives);
-router.get("/representative/by-referid", isLogInRep,representativeController.representativesByReferNumber);
-router.put("/representative/step-two", isLogReg,representativeController.registrationStepTwo);
+router.put("/representative/status-update/:id", isLogin, isAdmin, representativeController.updateRoleRepresentative);
+router.post('/representative/login', representativeController.loginRepresentative);
+router.get('/representative/profile', isLogInRep, representativeController.repProfile);
+router.delete('/representative/delete/:id', isLogin, isAdmin, representativeController.deleteRepresentative);
+router.get('/representative', isLogin, isAdmin, representativeController.allRepresentatives);
+router.get("/representative/valid", isLogin, isAdmin, representativeController.validRepresentatives);
+router.get("/representative/by-referid", isLogInRep, representativeController.representativesByReferNumber);
+router.put("/representative/step-two", isLogReg, representativeController.registrationStepTwo);
+router.get("/single-representative/:id" , isLogin,isAdmin, representativeController.representativeById);
 
 
 
