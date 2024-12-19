@@ -127,10 +127,13 @@ const updateRoleRepresentative = async (req, res) => {
             newRepId = `REP-${String(idNumber + 1).padStart(3, '0')}`;
         }
 
+        const repStatus = user.status === false ? true : false 
+        const repRole = user.role === "user" ? "representative" : "user"
+
         // Update user with the new representative_id
         const updateTwo = {
-            status: true,
-            role: "representative",
+            status: repStatus,
+            role: repRole,
             representative_id: newRepId,
             representative
         };
@@ -270,6 +273,20 @@ const representativesByReferNumber = async (req, res) => {
     }
 };
 
+const representativeById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const representative = await representativeModel.findById(id)
+        if (!representative) {
+            return errorResponse(res, 404, "Representative not found",null);
+        }
+        return successResponse(res, 200, "Representative fetched successfully", representative);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+}
+
+
 
 
 module.exports = {
@@ -282,5 +299,6 @@ module.exports = {
     allRepresentatives,
     validRepresentatives,
     representativesByReferNumber,
-    registrationStepTwo
+    registrationStepTwo,
+    representativeById
 }

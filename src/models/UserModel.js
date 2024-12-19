@@ -22,11 +22,15 @@ const userModelSchema = new Schema({
         type: String,
         required: true,
     },
-    role : {
-        type : String,
-        enum: ["user", "admin","representative"],
-        default : "user"
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+    role: {
+        type: String,
+        enum: ["user", "admin", "representative"],
+        default: "user"
     }
-},{ timestamps: true, versionKey: false })
+}, { timestamps: true, versionKey: false })
 const UserModel = model('users', userModelSchema);
 module.exports = UserModel;   
