@@ -24,7 +24,7 @@ exports.CreateAdmin = async (req, res) => {
             password,
             contactNumber,
             profilePhoto,
-            role: 'admin',
+            role: 'user',
             email: email
         });
 
