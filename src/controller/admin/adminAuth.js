@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 exports.CreateAdmin = async (req, res) => {
     try {
         const { name, contactNumber, password, profilePhoto, email } = req.body;
-        console.log(name, contactNumber);
 
         // Validate input
         if (!name || !contactNumber || !password) {
@@ -17,7 +16,7 @@ exports.CreateAdmin = async (req, res) => {
         // Check if admin user already exists
         const user = await UserModel.findOne({ contactNumber });
         if (user) {
-            return res.status(400).json({ status: "Failed", data: "Admin user with this contactNumber already exists" });
+            return res.status(409).json({ status: "Failed", data: "User with already exists" });
         }
         const newAdmin = new UserModel({
             name,
