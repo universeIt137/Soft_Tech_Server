@@ -10,13 +10,13 @@ const userModelSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
     },
     profilePhoto: {
         type: String,
     },
     contactNumber: {
         type: String,
+        unique: true,
     },
     password: {
         type: String,

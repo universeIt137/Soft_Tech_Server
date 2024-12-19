@@ -16,7 +16,7 @@ exports.CreateAdmin = async (req, res) => {
         // Check if admin user already exists
         const user = await UserModel.findOne({ contactNumber });
         if (user) {
-            return res.status(409).json({ status: "Failed", data: "User with already exists" });
+            return res.status(409).json({ status: "Failed", data: "User phone number already exists" });
         }
         const newAdmin = new UserModel({
             name,
@@ -24,7 +24,7 @@ exports.CreateAdmin = async (req, res) => {
             password,
             contactNumber,
             profilePhoto,
-            role: 'admin',
+            role: 'user',
             email: email
         });
 
