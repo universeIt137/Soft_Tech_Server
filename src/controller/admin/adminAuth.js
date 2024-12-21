@@ -93,7 +93,7 @@ exports.getAdminProfile = async (req, res) => {
 
 exports.allUsers = async (req, res) => {
     try {
-        let result = await UserModel.find()
+        let result = await UserModel.find().sort({createdAt:-1});
         return successResponse(res, 200, "All Users find successfully", result)
     } catch (e) {
         return errorResponse(res, 500, "Something went wrong", error);
