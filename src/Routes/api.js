@@ -26,7 +26,7 @@ router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
 router.get('/getAdminProfile', isLogin, isAdmin, AdminController.getAdminProfile);
 router.get("/all-users", isLogin, isAdmin, AdminController.allUsers);
-router.put("/status-update/:id", isLogin, isAdmin, AdminController.statusUpdate);
+router.put("/user-status-update/:id", isLogin, isAdmin, AdminController.updateUserRole);
 router.get("/single-user/:id", isLogin, isAdmin, AdminController.singleUserById);
 //  service
 router.get

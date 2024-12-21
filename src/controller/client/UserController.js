@@ -4,6 +4,7 @@ const OtpModel = require('../../models/OtpModel.js');
 const checkDuplicateUser = require('../../middleware/checkDuplicateUser');
 const EmailSend = require('../../utility/SendEmailHelper.js');
 const { EncodeToken } = require('../../utility/TokenHelper');
+const { errorResponse, successResponse } = require('../../utility/response.js');
 
 exports.CreateUser = async (req, res) => {
     try {
@@ -135,19 +136,3 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-exports.updateUserRole = async (req,res)=>{
-    try {
-        let id = req.params.id;
-        const filter = {
-            _id: id
-        };
-
-        const user = await UserModel.findById(id);
-        if(!user){
-            
-        }
-
-    } catch (error) {
-        
-    }
-}
