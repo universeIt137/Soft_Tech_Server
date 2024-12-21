@@ -85,12 +85,15 @@ const updateRoleRepresentative = async (req, res) => {
         // Ensure _id is an ObjectId
         const filter = {
             _id: id,
-            status: false,
-            role: "user"
         };
 
         // Check if user exists with the given filter
         const user = await representativeModel.findOne(filter);
+
+        const repStatus = user.status === false ? true : false
+        const repRole = user.role === "user" ? "representative" : "user"
+
+
 
         if (!user) {
             return res.status(404).send({ success: false, message: "User not found or already updated." });
@@ -101,8 +104,8 @@ const updateRoleRepresentative = async (req, res) => {
             // Update only the role and status if representative_id already exists
             const result = await representativeModel.updateOne(filter, {
                 $set: {
-                    status: true,
-                    role: "representative"
+                    status: repStatus,
+                    role: repRole
                 }
             });
 
@@ -127,8 +130,7 @@ const updateRoleRepresentative = async (req, res) => {
             newRepId = `REP-${String(idNumber + 1).padStart(3, '0')}`;
         }
 
-        const repStatus = user.status === false ? true : false 
-        const repRole = user.role === "user" ? "representative" : "user"
+
 
         // Update user with the new representative_id
         const updateTwo = {
@@ -278,7 +280,7 @@ const representativeById = async (req, res) => {
         const id = req.params.id;
         const representative = await representativeModel.findById(id)
         if (!representative) {
-            return errorResponse(res, 404, "Representative not found",null);
+            return errorResponse(res, 404, "Representative not found", null);
         }
         return successResponse(res, 200, "Representative fetched successfully", representative);
     } catch (error) {
