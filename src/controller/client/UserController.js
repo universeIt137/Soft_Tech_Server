@@ -133,4 +133,21 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ status: 'failed' })
     }
+};
+
+exports.updateUserRole = async (req,res)=>{
+    try {
+        let id = req.params.id;
+        const filter = {
+            _id: id
+        };
+
+        const user = await UserModel.findById(id);
+        if(!user){
+            
+        }
+
+    } catch (error) {
+        
+    }
 }
