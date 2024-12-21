@@ -22,8 +22,9 @@ const { isLogInRep, isRep } = require('../middleware/repMiddleware.js')
 const { isLogReg } = require('../middleware/registerMiddleware.js')
 
 // representative account info controller
-
 const repBankInfoController = require("../controller/representative/repAccountInfoController");
+// client controller
+const clientController = require("../controller/client/clientController");
 
 
 // Admin Api
@@ -200,6 +201,13 @@ router.get("/rep-bank-info", isLogInRep , repBankInfoController.repAllBankInform
 router.get("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInformationById);
 router.put("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoUpdate);
 router.delete("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoDelete);
+
+
+//client related api
+
+router.post("/client-info" , isLogInRep ,clientController.createClient);
+router.post("/client-role-update/:id",isLogin,isAdmin,clientController.clientRoleUpdate);
+router.post("/client-login",clientController.clientLogin);
 
 
 
