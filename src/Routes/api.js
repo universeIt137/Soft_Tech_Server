@@ -26,7 +26,7 @@ router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
 router.get('/getAdminProfile', isLogin, isAdmin, AdminController.getAdminProfile);
 router.get("/all-users", isLogin, isAdmin, AdminController.allUsers);
-router.put("/status-update/:id", isLogin, isAdmin, AdminController.statusUpdate);
+router.put("/user-status-update/:id", isLogin, isAdmin, AdminController.updateUserRole);
 router.get("/single-user/:id", isLogin, isAdmin, AdminController.singleUserById);
 //  service
 router.get('/get-all-service',serviceController.getAllService)
@@ -96,11 +96,11 @@ router.get('/getApplicationByUser', isLogin, ApplicationController.getApplicatio
 
 
 // team related api 
-router.post('/member', teamController.createMember);
+router.post('/member',isLogin,isAdmin ,teamController.createMember);
 router.get('/member', teamController.getAllMember);
-router.get('/member/:id', teamController.singleMember);
-router.put('/member/:id', teamController.updateMember);
-router.delete('/member/:id', teamController.deleteMember);
+router.get('/member/:id', isLogin,isAdmin,teamController.singleMember);
+router.put('/member/:id', isLogin,isAdmin,teamController.updateMember);
+router.delete('/member/:id',isLogin,isAdmin, teamController.deleteMember);
 
 // blog related api
 

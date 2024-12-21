@@ -101,35 +101,38 @@ exports.allUsers = async (req, res) => {
 };
 
 
-exports.statusUpdate = async (req, res) => {
+exports.updateUserRole = async (req, res) => {
     try {
-        const id = req.params.id; // Extract user ID from request parameters
-
-        // Find the user by ID
-        const user = await UserModel.findById(id);
-        if (!user) {
-            return errorResponse(res, 404, "User not found", null);
-        }
-
-        // Toggle status and role
-        const userStatus = user.isAdmin === false ? true : false; // Toggle status
-        const userRole = user.role === "admin" ? "user" : "admin"; // Toggle role
-
-        // Update the user
-        const update = {
-            isAdmin: userStatus,
-            role: userRole,
+        let id = req.params.id;
+        const filter = {
+            _id: id
         };
 
-        const updatedUser = await UserModel.findByIdAndUpdate(id, update, { new: true });
+        console.log(id)
 
-        // Respond with the updated user
-        return successResponse(res, 200, "Status updated successfully", updatedUser);
+        const user = await UserModel.findById(id);
+        if (!user) {
+            return errorResponse(res, 404, `User not found`, null);
+        }
+
+        const updateRole = user.role === "user" ? "admin" : "user";
+        const isAdminUpdate = user.isAdmin === false ? true : false ;
+        const update = {
+            role: updateRole,
+            isAdmin: isAdminUpdate
+        };
+
+        const data = await UserModel.updateOne(filter, { $set : update }, { upsert: true });
+
+        return successResponse(res, 200, "User role updated successfully", data);
+
+
     } catch (error) {
-        console.error("Error updating user status:", error);
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
+
+
 
 exports.singleUserById = async (req, res) => {
     try {

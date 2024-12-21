@@ -4,6 +4,7 @@ const OtpModel = require('../../models/OtpModel.js');
 const checkDuplicateUser = require('../../middleware/checkDuplicateUser');
 const EmailSend = require('../../utility/SendEmailHelper.js');
 const { EncodeToken } = require('../../utility/TokenHelper');
+const { errorResponse, successResponse } = require('../../utility/response.js');
 
 exports.CreateUser = async (req, res) => {
     try {
@@ -133,4 +134,5 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ status: 'failed' })
     }
-}
+};
+
