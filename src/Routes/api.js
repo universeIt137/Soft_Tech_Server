@@ -21,6 +21,11 @@ const representativeController = require("../controller/representativeController
 const { isLogInRep, isRep } = require('../middleware/repMiddleware.js')
 const { isLogReg } = require('../middleware/registerMiddleware.js')
 
+// representative account info controller
+
+const repBankInfoController = require("../controller/representative/repAccountInfoController");
+
+
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
@@ -187,6 +192,15 @@ router.get("/representative/valid", isLogin, isAdmin, representativeController.v
 router.get("/representative/by-referid", isLogInRep, representativeController.representativesByReferNumber);
 router.put("/representative/step-two", isLogReg, representativeController.registrationStepTwo);
 router.get("/single-representative/:id" , isLogin,isAdmin, representativeController.representativeById);
+
+// repBankInfo related api
+
+router.post("/rep-bank-info", isLogInRep , repBankInfoController.repCreateBankInfo);
+router.get("/rep-bank-info", isLogInRep , repBankInfoController.repAllBankInformation);
+router.get("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInformationById);
+router.put("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoUpdate);
+router.delete("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoDelete);
+
 
 
 
