@@ -153,11 +153,11 @@ router.get('/getApplicationByUser', isLogin, ApplicationController.getApplicatio
 
 
 // team related api 
-router.post('/member', teamController.createMember);
+router.post('/member',isLogin,isAdmin ,teamController.createMember);
 router.get('/member', teamController.getAllMember);
-router.get('/member/:id', teamController.singleMember);
-router.put('/member/:id', teamController.updateMember);
-router.delete('/member/:id', teamController.deleteMember);
+router.get('/member/:id', isLogin,isAdmin,teamController.singleMember);
+router.put('/member/:id', isLogin,isAdmin,teamController.updateMember);
+router.delete('/member/:id',isLogin,isAdmin, teamController.deleteMember);
 
 // blog related api
 
