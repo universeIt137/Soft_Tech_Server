@@ -40,6 +40,9 @@ const clientSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    productType : {
+        type : String,
+    }
 }, {
     timestamps: true, versionKey: false
 });
