@@ -10,7 +10,7 @@ const createClient = async (req, res) => {
     const id = req.headers.repId;
     const repId = new mongoose.Types.ObjectId(id);
     try {
-        const { phone,representative, ...otherDetails } = req.body;
+        const { phone, representative, ...otherDetails } = req.body;
 
         // Check if the phone number is already in use
         const existingClient = await clientModel.findOne({ phone });
@@ -21,7 +21,7 @@ const createClient = async (req, res) => {
         }
 
         // Create a new client
-        const data = await clientModel.create({ ...otherDetails, phone, representativeId : repId });
+        const data = await clientModel.create({ ...otherDetails, phone, representativeId: repId });
 
         return successResponse(res, 201, "Client created successfully", data);
     } catch (error) {
@@ -29,7 +29,7 @@ const createClient = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
-
+// client role update admin
 const clientRoleUpdate = async (req, res) => {
     try {
         const id = req.params.id;
@@ -54,7 +54,33 @@ const clientRoleUpdate = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
+// manage client admin 
 
+const allClientAdmin = async (req, res) => {
+    try {
+        const client = await clientModel.findOne().sort({ createdAt: -1 });
+        if (!client) return errorResponse(res, 404, "User not found", null);
+        return errorResponse(res, 200, "Client fetch successfully", client);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
+const clientByIdAdmin = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const filter = {
+            _id : id
+        };
+        const client = await clientModel.findById(filter);
+        if (!client) {
+            return errorResponse(res, 404, "Client not found", null);
+        }
+        return successResponse(res, 200, "Client fetched successfully", client);
+    } catch (error) {
+        return errorResponse(res,500,"Something went wrong", error);
+    }
+};
 
 const clientLogin = async (req, res) => {
     try {
@@ -68,14 +94,14 @@ const clientLogin = async (req, res) => {
 
         const client = await clientModel.findOne(filter);
         if (!client) {
-            return errorResponse(res, 404, "User not found",null);
+            return errorResponse(res, 404, "User not found", null);
         }
         const isMatch = await bcrypt.compareSync(password, client.password);
         if (!isMatch) {
-            return errorResponse(res, 400, "Invalid password",null);
+            return errorResponse(res, 400, "Invalid password", null);
         }
 
-        const  clientToken = jwt.sign({ id: client._id, role: client.role, phone: client.phone }, process.env.CLIENT_JWT_SECRET, { expiresIn: '10d' });
+        const clientToken = jwt.sign({ id: client._id, role: client.role, phone: client.phone }, process.env.CLIENT_JWT_SECRET, { expiresIn: '10d' });
 
         return successResponse(res, 200, "Client Logged in successfully", { client, clientToken });
 
@@ -84,7 +110,23 @@ const clientLogin = async (req, res) => {
     } catch (error) {
         errorResponse(res, 500, "Something went wrong", error);
     }
-}
+};
+
+const allClientByRepresentative = async (req, res) => {
+    try {
+        const id = req.headers.repId;
+        const filter = {
+            representativeId: new mongoose.Types.ObjectId(id),
+        };
+
+        const clients = await clientModel.find(filter).sort({ createdAt: -1 });
+        if (!clients) return errorResponse(res, 404, "Clients not found", null);
+        return successResponse(res, 200, "All clients fetched successfully", clients);
+
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
 
 
 
@@ -93,6 +135,8 @@ const clientLogin = async (req, res) => {
 module.exports = {
     createClient,
     clientRoleUpdate,
-    clientLogin
-
+    clientLogin,
+    allClientByRepresentative,
+    allClientAdmin,
+    clientByIdAdmin
 }

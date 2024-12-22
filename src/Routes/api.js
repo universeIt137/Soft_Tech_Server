@@ -205,10 +205,11 @@ router.delete("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankIn
 
 //client related api
 
-router.post("/client-info" , isLogInRep ,clientController.createClient);
+router.post("/create-client" , isLogInRep ,clientController.createClient);
 router.post("/client-role-update/:id",isLogin,isAdmin,clientController.clientRoleUpdate);
 router.post("/client-login",clientController.clientLogin);
-
+router.get("/all-client-by-admin", isLogin,isAdmin, clientController.allClientAdmin);
+router.get("/client-by-admin/:id", isLogin, isAdmin, clientController.clientByIdAdmin)
 
 
 
