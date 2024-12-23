@@ -42,6 +42,10 @@ const clientSchema = new Schema({
     },
     productType : {
         type : String,
+    },
+    adminId : {
+        type : Schema.Types.ObjectId,
+        ref : 'admins',
     }
 }, {
     timestamps: true, versionKey: false
