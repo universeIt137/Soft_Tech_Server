@@ -70,7 +70,7 @@ const clientByIdAdmin = async (req, res) => {
     try {
         const id = req.params.id;
         const filter = {
-            _id : id
+            _id: id
         };
         const client = await clientModel.findById(filter);
         if (!client) {
@@ -78,7 +78,7 @@ const clientByIdAdmin = async (req, res) => {
         }
         return successResponse(res, 200, "Client fetched successfully", client);
     } catch (error) {
-        return errorResponse(res,500,"Something went wrong", error);
+        return errorResponse(res, 500, "Something went wrong", error);
     }
 };
 
@@ -97,7 +97,7 @@ const clientCreateByAdmin = async (req, res) => {
         }
 
         // Create a new client
-        const data = await clientModel.create({ ...otherDetails, phone, adminId : adminId });
+        const data = await clientModel.create({ ...otherDetails, phone, adminId: adminId });
 
         return successResponse(res, 201, "Client created successfully", data);
     } catch (error) {
@@ -152,7 +152,7 @@ const allClientByRepresentative = async (req, res) => {
     }
 };
 
-const clientDeleteByAdmin = async (req,res) => {
+const clientDeleteByAdmin = async (req, res) => {
     try {
         const id = req.params.id;
         const filter = {
@@ -163,6 +163,28 @@ const clientDeleteByAdmin = async (req,res) => {
         return successResponse(res, 200, "Client deleted successfully", client);
     } catch (error) {
         return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
+const clientUpdateByAdmin = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const filter = {
+            _id: id
+        };
+        const { name, phone, address, clientImage, businessType } = req.body;
+        const update = {
+            name,
+            phone,
+            address,
+            clientImage,
+            businessType,
+        }
+        const client = await clientModel.findOneAndUpdate(filter, update, { new: true });
+        if (!client) return errorResponse(res, 404, "Client not found", null);
+        return successResponse(res, 200, "Client updated successfully", client);
+    } catch (e) {
+        return errorResponse(res, 500, "Something went wrong", e);
     }
 };
 
@@ -179,5 +201,6 @@ module.exports = {
     allClientAdmin,
     clientByIdAdmin,
     clientCreateByAdmin,
-    clientDeleteByAdmin
+    clientDeleteByAdmin,
+    clientUpdateByAdmin
 }
