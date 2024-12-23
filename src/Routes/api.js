@@ -212,6 +212,7 @@ router.get("/all-client-by-admin", isLogin,isAdmin, clientController.allClientAd
 router.get("/client-by-admin/:id", isLogin, isAdmin, clientController.clientByIdAdmin);
 router.post("/client-create-admin", isLogin, isAdmin, clientController.clientCreateByAdmin);
 router.delete("/client-delete-admin/:id", isLogin, isAdmin, clientController.clientDeleteByAdmin);
+router.delete("/client-update-admin/:id", isLogin, isAdmin, clientController.clientUpdateByAdmin);
 
 
 
