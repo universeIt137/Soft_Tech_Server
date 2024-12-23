@@ -82,6 +82,32 @@ const clientByIdAdmin = async (req, res) => {
     }
 };
 
+const clientCreateByAdmin = async (req, res) => {
+    const id = req.headers.id;
+    const adminId = new mongoose.Types.ObjectId(id);
+    try {
+        const { phone, representative, ...otherDetails } = req.body;
+
+        // Check if the phone number is already in use
+        const existingClient = await clientModel.findOne({ phone });
+
+
+        if (existingClient) {
+            return errorResponse(res, 409, "Phone already in use", null);
+        }
+
+        // Create a new client
+        const data = await clientModel.create({ ...otherDetails, phone, adminId : adminId });
+
+        return successResponse(res, 201, "Client created successfully", data);
+    } catch (error) {
+        console.error(error);
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
+
+
 const clientLogin = async (req, res) => {
     try {
 
@@ -138,5 +164,6 @@ module.exports = {
     clientLogin,
     allClientByRepresentative,
     allClientAdmin,
-    clientByIdAdmin
+    clientByIdAdmin,
+    clientCreateByAdmin
 }
