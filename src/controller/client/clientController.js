@@ -58,9 +58,9 @@ const clientRoleUpdate = async (req, res) => {
 
 const allClientAdmin = async (req, res) => {
     try {
-        const client = await clientModel.findOne().sort({ createdAt: -1 });
+        const client = await clientModel.find().sort({ createdAt: -1 });
         if (!client) return errorResponse(res, 404, "User not found", null);
-        return errorResponse(res, 200, "Client fetch successfully", client);
+        return successResponse(res, 200, "Client fetch successfully", client);
     } catch (error) {
         return errorResponse(res, 500, "Something went wrong", error);
     }
@@ -105,8 +105,6 @@ const clientCreateByAdmin = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
-
-
 
 const clientLogin = async (req, res) => {
     try {
@@ -153,6 +151,7 @@ const allClientByRepresentative = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 };
+
 
 
 
