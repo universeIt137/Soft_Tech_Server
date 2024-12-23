@@ -152,6 +152,20 @@ const allClientByRepresentative = async (req, res) => {
     }
 };
 
+const clientDeleteByAdmin = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const filter = {
+            _id: id
+        };
+        const client = await clientModel.findByIdAndDelete(filter);
+        if (!client) return errorResponse(res, 404, "Client not found", null);
+        return successResponse(res, 200, "Client deleted successfully", client);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
 
 
 
@@ -164,5 +178,6 @@ module.exports = {
     allClientByRepresentative,
     allClientAdmin,
     clientByIdAdmin,
-    clientCreateByAdmin
+    clientCreateByAdmin,
+    clientDeleteByAdmin
 }
