@@ -171,7 +171,7 @@ const loginRepresentative = async (req, res) => {
 
         const representative = await representativeModel.findOne(filter);
         if (!representative) {
-            return errorResponse(res, 404, "User not found")
+            return errorResponse(res, 404, "You are not authorized user");
         }
         const isMatch = await bcrypt.compareSync(password, representative.password);
         if (!isMatch) {
