@@ -64,4 +64,10 @@ mongoose
     console.log(e);
   });
 
+
+app.get("*",(req,res)=>{
+  res.send({status:"failed",msg : "Api not found"});
+})
+
+
 module.exports = app;
