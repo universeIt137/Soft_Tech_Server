@@ -18,6 +18,7 @@ const isLogInRep = (req, res, next) => {
         req.headers.repId = id;
         req.headers.role = role;
         req.headers.phone = phone;
+        req.headers.referId = decode.representative_id;
         if (!decode) {
             return res.status(401).json({
                 status: "fail",
