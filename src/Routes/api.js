@@ -21,6 +21,12 @@ const representativeController = require("../controller/representativeController
 const { isLogInRep, isRep } = require('../middleware/repMiddleware.js')
 const { isLogReg } = require('../middleware/registerMiddleware.js')
 
+// representative account info controller
+const repBankInfoController = require("../controller/representative/repAccountInfoController");
+// client controller
+const clientController = require("../controller/client/clientController");
+
+
 // Admin Api
 router.post('/CreateAdmin', AdminController.CreateAdmin)
 router.post('/adminLogin', AdminController.Adminlogin)
@@ -130,6 +136,27 @@ router.get("/representative/valid", isLogin, isAdmin, representativeController.v
 router.get("/representative/by-referid", isLogInRep, representativeController.representativesByReferNumber);
 router.put("/representative/step-two", isLogReg, representativeController.registrationStepTwo);
 router.get("/single-representative/:id", isLogin, isAdmin, representativeController.representativeById);
+
+// repBankInfo related api
+
+router.post("/rep-bank-info", isLogInRep , repBankInfoController.repCreateBankInfo);
+router.get("/rep-bank-info", isLogInRep , repBankInfoController.repAllBankInformation);
+router.get("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInformationById);
+router.put("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoUpdate);
+router.delete("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoDelete);
+
+
+//client related api
+
+router.post("/create-client" , isLogInRep ,clientController.createClient);
+router.post("/client-role-update/:id",isLogin,isAdmin,clientController.clientRoleUpdate);
+router.post("/client-login",clientController.clientLogin);
+router.get("/all-client-by-admin", isLogin,isAdmin, clientController.allClientAdmin);
+router.get("/client-by-admin/:id", isLogin, isAdmin, clientController.clientByIdAdmin);
+router.post("/client-create-admin", isLogin, isAdmin, clientController.clientCreateByAdmin);
+router.delete("/client-delete-admin/:id", isLogin, isAdmin, clientController.clientDeleteByAdmin);
+router.put("/client-update-admin/:id", isLogin, isAdmin, clientController.clientUpdateByAdmin);
+router.get("/allClientByRepresentative", isLogInRep, clientController.allClientByRepresentative);
 
 
 
