@@ -178,7 +178,7 @@ const loginRepresentative = async (req, res) => {
             return errorResponse(res, 400, "Invalid password")
         }
 
-        const representativeToken = jwt.sign({ id: representative._id, role: representative.role, phone: representative.phone }, process.env.RE_JWT_SECRET, { expiresIn: '10d' });
+        const representativeToken = jwt.sign({ id: representative._id, role: representative.role, phone: representative.phone, representative_id: representative.representative_id }, process.env.RE_JWT_SECRET, { expiresIn: '10d' });
 
         return successResponse(res, 200, "Representative Logged in successfully", data = { representative, representativeToken });
 
@@ -258,14 +258,14 @@ const validRepresentatives = async (req, res) => {
 
 
 const representativesByReferNumber = async (req, res) => {
-    const id = req.headers.id;
+    const referid = req.headers.referId;
     try {
         const filter = {
-            referUserId: id,
+            referenceId: referid,
             role: "representative",
             status: true
         };
-        const data = await representativeModel.find(filter).populate("referenceId", "name phone");
+        const data = await representativeModel.find(filter);
         if (!data) {
             return errorResponse(res, 404, "Representative not found");
         }
@@ -287,6 +287,8 @@ const representativeById = async (req, res) => {
         return errorResponse(res, 500, "Something went wrong", error);
     }
 }
+
+
 
 
 
