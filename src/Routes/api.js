@@ -35,32 +35,12 @@ router.get("/all-users", isLogin, isAdmin, AdminController.allUsers);
 router.put("/user-status-update/:id", isLogin, isAdmin, AdminController.updateUserRole);
 router.get("/single-user/:id", isLogin, isAdmin, AdminController.singleUserById);
 //  service
-router.get
-    (
-        '/get-all-service',
-        serviceController.getAllService
-    )
+router.get('/get-all-service',serviceController.getAllService)
 
-router.post
-    (
-        '/create-service',
-        serviceController.CreateService
-    )
-router.put
-    (
-        '/update-service/:id'
-        , serviceController.updateService
-    );
-router.delete
-    (
-        '/delete-service/:id',
-        serviceController.deleteService
-    )
-router.get
-    (
-        '/get-service-by-id/:id',
-        serviceController.getServiceById
-    )
+router.post('/create-service',serviceController.CreateService)
+router.put('/update-service/:id', serviceController.updateService);
+router.delete('/delete-service/:id',serviceController.deleteService)
+router.get('/get-service-by-id/:id',serviceController.getServiceById)
 // career
 router.get('/getAllCareer', CareerController.getAllCareer)
 router.post('/createCareer', isLogin, isAdmin, CareerController.CreateCareer)
@@ -78,64 +58,27 @@ router.get('/career/applications/:careerId', isLogin, isAdmin, ApplicationContro
 router.delete('/deleteApplications/:id', isLogin, isAdmin, ApplicationController.deleteApplication);
 
 // product controller
-router.post
-    (
-        '/create-product',
-        ProductController.CreateProduct
-    );
-router.get
-    (
-        '/get-products',
-        ProductController.GetProducts
-    );
+router.post('/create-product',ProductController.CreateProduct);
+router.get('/get-products',ProductController.GetProducts);
 
-router.put
-    (
-        '/update-product/:id',
+router.put('/update-product/:id',ProductController.UpdateProduct);
 
-        ProductController.UpdateProduct
-    );
+router.delete('/delete-product/:id',ProductController.DeleteProduct);
 
-router.delete
-    (
-        '/delete-product/:id',
-
-        ProductController.DeleteProduct
-    );
-
-router.get
-    (
-        "/single-product/:id",
-        ProductController.singleProductById
-    )
+router.get("/single-product/:id",ProductController.singleProductById)
 
 router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
 
 // portfolio api
 
-router.post
-    (
-        "/portfolio/create",
-        portfolioController.createPortfolio
-    );
+router.post("/portfolio/create",portfolioController.createPortfolio);
 
-router.delete(
-    "/portfolio/delete/:id",
-    portfolioController.deletePortfolio
-);
+router.delete("/portfolio/delete/:id",portfolioController.deletePortfolio);
 
-router.put
-    (
-        "/portfolio/update/:id",
-        portfolioController.updatePortfolio
-    );
+router.put("/portfolio/update/:id",portfolioController.updatePortfolio);
 
-router.get
-    (
-        "/get-all-portfolio",
-        portfolioController.getAllPortfolio
-    );
+router.get("/get-all-portfolio",portfolioController.getAllPortfolio);
 
 router.get("/single/portfolio/:id", portfolioController.singlePortfolio);
 
@@ -192,7 +135,7 @@ router.get('/representative', isLogin, isAdmin, representativeController.allRepr
 router.get("/representative/valid", isLogin, isAdmin, representativeController.validRepresentatives);
 router.get("/representative/by-referid", isLogInRep, representativeController.representativesByReferNumber);
 router.put("/representative/step-two", isLogReg, representativeController.registrationStepTwo);
-router.get("/single-representative/:id" , isLogin,isAdmin, representativeController.representativeById);
+router.get("/single-representative/:id", isLogin, isAdmin, representativeController.representativeById);
 
 // repBankInfo related api
 
@@ -213,6 +156,7 @@ router.get("/client-by-admin/:id", isLogin, isAdmin, clientController.clientById
 router.post("/client-create-admin", isLogin, isAdmin, clientController.clientCreateByAdmin);
 router.delete("/client-delete-admin/:id", isLogin, isAdmin, clientController.clientDeleteByAdmin);
 router.put("/client-update-admin/:id", isLogin, isAdmin, clientController.clientUpdateByAdmin);
+router.get("/allClientByRepresentative", isLogInRep, clientController.allClientByRepresentative);
 
 
 
