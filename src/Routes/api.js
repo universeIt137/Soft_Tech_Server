@@ -25,6 +25,9 @@ const { isLogReg } = require('../middleware/registerMiddleware.js')
 const repBankInfoController = require("../controller/representative/repAccountInfoController");
 // client controller
 const clientController = require("../controller/client/clientController");
+// product video upload controller
+const productVideoUploadController = require("../controller/product/productVideoController.js");
+const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVideo, singleSessionVideo, deleteSessionVideo } = require('../controller/admin/SessionVideoController.js')
 
 
 // Admin Api
@@ -158,8 +161,20 @@ router.delete("/client-delete-admin/:id", isLogin, isAdmin, clientController.cli
 router.put("/client-update-admin/:id", isLogin, isAdmin, clientController.clientUpdateByAdmin);
 router.get("/allClientByRepresentative", isLogInRep, clientController.allClientByRepresentative);
 
+// upload product video related api
+
+router.post("/product-video-upload", isLogin, isAdmin, productVideoUploadController.productUploadVideo);
+router.get("/product-all-videos", isLogin, isAdmin, productVideoUploadController.allProductVideos);
+router.get("/product-single-video/:id", isLogin, isAdmin, productVideoUploadController.singleProductVideo);
+router.put("/product-video-update/:id", isLogin, isAdmin, productVideoUploadController.updateProductVideo);
+router.delete("/product-video-delete/:id", isLogin, isAdmin, productVideoUploadController.deleteProductVideo);
 
 
-
+// upload session video related api
+router.post("/addSessionVideo", isLogin, isAdmin, addSessionVideo)
+router.get("/getAllSessionVideo", isLogin, getAllSessionVideo);
+router.get("/singleSessionVideo/:id", isLogin, singleSessionVideo);
+router.put("/updateSessionVideo/:id", isLogin, updateSessionVideo);
+router.delete("/deleteSessionVideo/:id", isLogin, deleteSessionVideo);
 
 module.exports = router
