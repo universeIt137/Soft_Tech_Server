@@ -8,6 +8,9 @@ const productVideoSchema = new Schema({
     videoUrl : {
         type : String,
     },
+    youtubeUrl : {
+        type : String,
+    },
     title : {
         type : String,
     }
