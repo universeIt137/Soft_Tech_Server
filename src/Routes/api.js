@@ -161,6 +161,8 @@ router.delete("/client-delete-admin/:id", isLogin, isAdmin, clientController.cli
 router.put("/client-update-admin/:id", isLogin, isAdmin, clientController.clientUpdateByAdmin);
 router.get("/allClientByRepresentative", isLogInRep, clientController.allClientByRepresentative);
 
+router.get("/getAllClientbyRepresentativeId/:id", clientController.getAllClientbyRepresentativeId);
+
 // upload product video related api
 
 router.post("/product-video-upload", isLogin, isAdmin, productVideoUploadController.productUploadVideo);
