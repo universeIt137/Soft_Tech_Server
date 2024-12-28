@@ -73,6 +73,8 @@ const allMessage = async (req, res) => {
                 message: 1,
                 status: 1,
                 createdAt: 1,
+                createdAt : 1,
+                updatedAt : 1,
                 "clientDetails.name" : 1,
                 "clientDetails.phone" : 1,
                 "representativeDetails.name" : 1,
