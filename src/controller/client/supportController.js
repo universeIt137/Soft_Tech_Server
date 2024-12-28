@@ -72,6 +72,7 @@ const allMessage = async (req, res) => {
                 phoneNumber: 1,
                 message: 1,
                 status: 1,
+                status : 1,
                 createdAt: 1,
                 createdAt : 1,
                 updatedAt : 1,
