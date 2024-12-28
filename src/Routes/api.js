@@ -27,7 +27,12 @@ const repBankInfoController = require("../controller/representative/repAccountIn
 const clientController = require("../controller/client/clientController");
 // product video upload controller
 const productVideoUploadController = require("../controller/product/productVideoController.js");
-const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVideo, singleSessionVideo, deleteSessionVideo } = require('../controller/admin/SessionVideoController.js')
+const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVideo, singleSessionVideo, deleteSessionVideo } = require('../controller/admin/SessionVideoController.js');
+
+// support controllers
+
+const supportController = require("../controller/client/supportController");
+const { isLoginClient } = require('../middleware/clientMiddleware.js')
 
 
 // Admin Api
@@ -166,7 +171,7 @@ router.get("/getAllClientbyRepresentativeId/:id", clientController.getAllClientb
 // upload product video related api
 
 router.post("/product-video-upload", isLogin, isAdmin, productVideoUploadController.productUploadVideo);
-router.get("/product-all-videos", isLogin, isAdmin, productVideoUploadController.allProductVideos);
+router.get("/product-all-videos",  productVideoUploadController.allProductVideos);
 router.get("/product-single-video/:id", isLogin, isAdmin, productVideoUploadController.singleProductVideo);
 router.put("/product-video-update/:id", isLogin, isAdmin, productVideoUploadController.updateProductVideo);
 router.delete("/product-video-delete/:id", isLogin, isAdmin, productVideoUploadController.deleteProductVideo);
@@ -174,9 +179,16 @@ router.delete("/product-video-delete/:id", isLogin, isAdmin, productVideoUploadC
 
 // upload session video related api
 router.post("/addSessionVideo", isLogin, isAdmin, addSessionVideo)
-router.get("/getAllSessionVideo", isLogin, getAllSessionVideo);
+router.get("/getAllSessionVideo", getAllSessionVideo);
 router.get("/singleSessionVideo/:id", isLogin, singleSessionVideo);
 router.put("/updateSessionVideo/:id", isLogin, updateSessionVideo);
 router.delete("/deleteSessionVideo/:id", isLogin, deleteSessionVideo);
+
+// support related api
+
+router.post("/support", isLoginClient , supportController.sendSupportMessage);
+router.put("/support/:id", isLogin,isAdmin,supportController.msgStatusUpdate);
+router.get("/support", isLogin,isAdmin,supportController.allMessage);
+
 
 module.exports = router
