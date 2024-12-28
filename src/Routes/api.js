@@ -43,12 +43,12 @@ router.get("/all-users", isLogin, isAdmin, AdminController.allUsers);
 router.put("/user-status-update/:id", isLogin, isAdmin, AdminController.updateUserRole);
 router.get("/single-user/:id", isLogin, isAdmin, AdminController.singleUserById);
 //  service
-router.get('/get-all-service',serviceController.getAllService)
+router.get('/get-all-service', serviceController.getAllService)
 
-router.post('/create-service',serviceController.CreateService)
+router.post('/create-service', serviceController.CreateService)
 router.put('/update-service/:id', serviceController.updateService);
-router.delete('/delete-service/:id',serviceController.deleteService)
-router.get('/get-service-by-id/:id',serviceController.getServiceById)
+router.delete('/delete-service/:id', serviceController.deleteService)
+router.get('/get-service-by-id/:id', serviceController.getServiceById)
 // career
 router.get('/getAllCareer', CareerController.getAllCareer)
 router.post('/createCareer', isLogin, isAdmin, CareerController.CreateCareer)
@@ -66,27 +66,27 @@ router.get('/career/applications/:careerId', isLogin, isAdmin, ApplicationContro
 router.delete('/deleteApplications/:id', isLogin, isAdmin, ApplicationController.deleteApplication);
 
 // product controller
-router.post('/create-product',ProductController.CreateProduct);
-router.get('/get-products',ProductController.GetProducts);
+router.post('/create-product', ProductController.CreateProduct);
+router.get('/get-products', ProductController.GetProducts);
 
-router.put('/update-product/:id',ProductController.UpdateProduct);
+router.put('/update-product/:id', ProductController.UpdateProduct);
 
-router.delete('/delete-product/:id',ProductController.DeleteProduct);
+router.delete('/delete-product/:id', ProductController.DeleteProduct);
 
-router.get("/single-product/:id",ProductController.singleProductById)
+router.get("/single-product/:id", ProductController.singleProductById)
 
 router.put('/UpdateProduct/:id', ProductController.UpdateProduct);
 router.delete('/DeleteProduct/:id', ProductController.DeleteProduct);
 
 // portfolio api
 
-router.post("/portfolio/create",portfolioController.createPortfolio);
+router.post("/portfolio/create", portfolioController.createPortfolio);
 
-router.delete("/portfolio/delete/:id",portfolioController.deletePortfolio);
+router.delete("/portfolio/delete/:id", portfolioController.deletePortfolio);
 
-router.put("/portfolio/update/:id",portfolioController.updatePortfolio);
+router.put("/portfolio/update/:id", portfolioController.updatePortfolio);
 
-router.get("/get-all-portfolio",portfolioController.getAllPortfolio);
+router.get("/get-all-portfolio", portfolioController.getAllPortfolio);
 
 router.get("/single/portfolio/:id", portfolioController.singlePortfolio);
 
@@ -110,11 +110,11 @@ router.get('/getApplicationByUser', isLogin, ApplicationController.getApplicatio
 
 
 // team related api 
-router.post('/member',isLogin,isAdmin ,teamController.createMember);
+router.post('/member', isLogin, isAdmin, teamController.createMember);
 router.get('/member', teamController.getAllMember);
-router.get('/member/:id', isLogin,isAdmin,teamController.singleMember);
-router.put('/member/:id', isLogin,isAdmin,teamController.updateMember);
-router.delete('/member/:id',isLogin,isAdmin, teamController.deleteMember);
+router.get('/member/:id', isLogin, isAdmin, teamController.singleMember);
+router.put('/member/:id', isLogin, isAdmin, teamController.updateMember);
+router.delete('/member/:id', isLogin, isAdmin, teamController.deleteMember);
 
 // blog related api
 
@@ -147,19 +147,19 @@ router.get("/single-representative/:id", isLogin, isAdmin, representativeControl
 
 // repBankInfo related api
 
-router.post("/rep-bank-info", isLogInRep , repBankInfoController.repCreateBankInfo);
-router.get("/rep-bank-info", isLogInRep , repBankInfoController.repAllBankInformation);
-router.get("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInformationById);
-router.put("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoUpdate);
-router.delete("/rep-bank-info/:id", isLogInRep , repBankInfoController.repBankInfoDelete);
+router.post("/rep-bank-info", isLogInRep, repBankInfoController.repCreateBankInfo);
+router.get("/rep-bank-info", isLogInRep, repBankInfoController.repAllBankInformation);
+router.get("/rep-bank-info/:id", isLogInRep, repBankInfoController.repBankInformationById);
+router.put("/rep-bank-info/:id", isLogInRep, repBankInfoController.repBankInfoUpdate);
+router.delete("/rep-bank-info/:id", isLogInRep, repBankInfoController.repBankInfoDelete);
 
 
 //client related api
 
-router.post("/create-client" , isLogInRep ,clientController.createClient);
-router.post("/client-role-update/:id",isLogin,isAdmin,clientController.clientRoleUpdate);
-router.post("/client-login",clientController.clientLogin);
-router.get("/all-client-by-admin", isLogin,isAdmin, clientController.allClientAdmin);
+router.post("/create-client", isLogInRep, clientController.createClient);
+router.post("/client-role-update/:id", isLogin, isAdmin, clientController.clientRoleUpdate);
+router.post("/client-login", clientController.clientLogin);
+router.get("/all-client-by-admin", isLogin, isAdmin, clientController.allClientAdmin);
 router.get("/client-by-admin/:id", isLogin, isAdmin, clientController.clientByIdAdmin);
 router.post("/client-create-admin", isLogin, isAdmin, clientController.clientCreateByAdmin);
 router.delete("/client-delete-admin/:id", isLogin, isAdmin, clientController.clientDeleteByAdmin);
@@ -171,7 +171,7 @@ router.get("/getAllClientbyRepresentativeId/:id", clientController.getAllClientb
 // upload product video related api
 
 router.post("/product-video-upload", isLogin, isAdmin, productVideoUploadController.productUploadVideo);
-router.get("/product-all-videos",  productVideoUploadController.allProductVideos);
+router.get("/product-all-videos", productVideoUploadController.allProductVideos);
 router.get("/product-single-video/:id", isLogin, isAdmin, productVideoUploadController.singleProductVideo);
 router.put("/product-video-update/:id", isLogin, isAdmin, productVideoUploadController.updateProductVideo);
 router.delete("/product-video-delete/:id", isLogin, isAdmin, productVideoUploadController.deleteProductVideo);
@@ -186,9 +186,11 @@ router.delete("/deleteSessionVideo/:id", isLogin, deleteSessionVideo);
 
 // support related api
 
-router.post("/support", isLoginClient , supportController.sendSupportMessage);
-router.put("/support/:id", isLogin,isAdmin,supportController.msgStatusUpdate);
-router.get("/support", isLogin,isAdmin,supportController.allMessage);
+router.post("/support", isLoginClient, supportController.sendSupportMessage);
+router.put("/support/:id", isLogin, isAdmin, supportController.msgStatusUpdate);
+router.get("/support", isLogin, isAdmin, supportController.allMessage);
+router.get("/support/:id", isLogin, isAdmin, supportController.singleMessage);
+router.delete("/support/:id", isLogin, isAdmin, supportController.deleteMessage);
 
 
 module.exports = router

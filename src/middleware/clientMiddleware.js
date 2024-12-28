@@ -15,7 +15,7 @@ const isLoginClient = (req, res, next) => {
     
         const role = decode.role;
         const phone = decode.phone;
-        req.headers.repId = id;
+        req.headers.clientId = id;
         req.headers.role = role;
         req.headers.phone = phone;
         if (!decode) {
