@@ -81,8 +81,13 @@ const allMessage = async (req, res) => {
             }
         }
 
+        const sortData = {
+            $sort: { createdAt: -1 }
+        };
+
+
         const result = await supportModel.aggregate([
-            joinWithClientModel, joinWithRepresentativeModel, unwindClientDetails, unwindRepresentativeDetails,projectionData
+            joinWithClientModel, joinWithRepresentativeModel, unwindClientDetails, unwindRepresentativeDetails,projectionData,sortData
         ]);
 
 
