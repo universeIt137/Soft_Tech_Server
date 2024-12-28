@@ -39,7 +39,7 @@ exports.updateSessionVideo = async (req, res) => {
     try {
         let id = req.params.id;
         let reqBody = req.body;
-        let data = await SessionModel.findByIdAndUpdate(id, reqBody, { neww: true });
+        let data = await SessionModel.findByIdAndUpdate(id, reqBody, { new: true });
 
         if (!data) {
             return errorResponse(res, 404, "Video not found", null);
