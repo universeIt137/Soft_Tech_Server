@@ -12,8 +12,9 @@ const supportSchema = new Schema({
         type : String,
     },
     status : {
-        type : Boolean,
-        default : false,
+        type : String,
+        default : "pending",
+        enum : ["pending", "resolved"]
     },
     clientId : {
         type : Schema.Types.ObjectId,

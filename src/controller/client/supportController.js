@@ -24,7 +24,7 @@ const msgStatusUpdate = async (req, res) => {
     try {
         const id = req.params.id;
         const update = {
-            status: true,
+            status: "pending",
         }
         const result = await supportModel.findByIdAndUpdate(id, update, { new: true });
         if (!result) return errorResponse(res, 404, "Message not found", null);
