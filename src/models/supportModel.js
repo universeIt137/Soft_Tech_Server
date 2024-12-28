@@ -14,6 +14,10 @@ const supportSchema = new Schema({
     status : {
         type : Boolean,
         default : false,
+    },
+    clientId : {
+        type : Schema.Types.ObjectId,
+        ref : 'clients',
     }
 },{timestamps: true,versionKey:false});
 
