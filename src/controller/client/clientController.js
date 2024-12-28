@@ -189,6 +189,27 @@ const clientUpdateByAdmin = async (req, res) => {
 };
 
 
+const getAllClientbyRepresentativeId = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const filter = {
+            representativeId: id
+        };
+
+        const clientOfRepresentative = await clientModel.find(filter);
+
+        if (!clientOfRepresentative) {
+            return errorResponse(res, 404, "Clients not found", null);
+        }
+
+        return successResponse(res, 200, "Client fetched successfully", clientOfRepresentative);
+
+    } catch (err) {
+        return errorResponse(res, 500, "Something went wrong", err);
+    }
+
+}
 
 
 
@@ -202,5 +223,6 @@ module.exports = {
     clientByIdAdmin,
     clientCreateByAdmin,
     clientDeleteByAdmin,
-    clientUpdateByAdmin
+    clientUpdateByAdmin,
+    getAllClientbyRepresentativeId
 }
