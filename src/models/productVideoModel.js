@@ -13,6 +13,12 @@ const productVideoSchema = new Schema({
     },
     title : {
         type : String,
+    },
+    type: {
+        type: String,
+    },
+    description: {
+        type: String
     }
     
 },{ timestamps : true,versionKey : false });
