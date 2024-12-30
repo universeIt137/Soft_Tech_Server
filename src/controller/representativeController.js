@@ -53,7 +53,7 @@ const registrationStepTwo = async (req, res) => {
         let filter = {
             _id: id
         };
-        console.log(id);
+        // console.log(id);
         const reqBody = req.body;
 
         // Update the representative's profile
@@ -193,7 +193,7 @@ const loginRepresentative = async (req, res) => {
 const repProfile = async (req, res) => {
     try {
         const id = req.headers.repId;
-        console.log(id);
+        // console.log(id);
         const filter = {
             _id: id,
             status: true,
