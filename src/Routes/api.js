@@ -33,7 +33,7 @@ const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVid
 
 const supportController = require("../controller/client/supportController");
 const { isLoginClient } = require('../middleware/clientMiddleware.js')
-const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus } = require('../controller/representative/ProductRequestController.js')
+const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep } = require('../controller/representative/ProductRequestController.js')
 
 
 // Admin Api
@@ -197,8 +197,9 @@ router.delete("/support/:id", isLogin, isAdmin, supportController.deleteMessage)
 // product request related api 
 router.post("/MakeProductRequest", isLogInRep, MakeProductRequest);
 router.get("/GetAllRequestInfo", isLogInRep, GetAllRequestInfo);
+router.get("/SellingProdutByRep/:id",isLogin, isAdmin, SellingProdutByRep);
 router.get("/GetAllRequestInfoByAdmin", isLogin, isAdmin, GetAllRequestInfoByAdmin);
 router.get("/UpdateRequestStatus/:id", isLogin, isAdmin, UpdateRequestStatus);
-
+router.get('/GetAllProductRequestForClient', isLoginClient, GetAllProductRequestForClient);
 
 module.exports = router

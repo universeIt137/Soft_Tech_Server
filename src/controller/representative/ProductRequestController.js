@@ -39,6 +39,25 @@ exports.GetAllRequestInfo = async (req, res) => {
 };
 
 
+exports.SellingProdutByRep = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const filter = {
+            representative_id: new mongoose.Types.ObjectId(id),
+        };
+        const allRequests = await productRequestModel
+            .find(filter)
+            .populate('client_id') // Fetch name and email from the Client collection
+            .populate('product_id') // Fetch name and price from the Product collection
+            .populate('representative_id') // Fetch name and email from the Representative collection
+            .sort({ createdAt: -1 });
+
+        return successResponse(res, 200, "All data fetched", allRequests);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
 exports.GetAllRequestInfoByAdmin = async (req, res) => {
     try {
         const allRequests = await productRequestModel
@@ -51,6 +70,35 @@ exports.GetAllRequestInfoByAdmin = async (req, res) => {
         return successResponse(res, 200, "All data fetched", allRequests);
     } catch (error) {
         return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
+exports.GetAllProductRequestForClient = async (req, res) => {
+    const clientId = req.headers.clientId; // Extract clientId from headers
+
+    try {
+        // Validate input
+        if (!clientId) {
+            return errorResponse(res, 400, "Missing required field: clientId");
+        }
+
+        // Fetch all requests for the given clientId
+        const clientRequests = await productRequestModel
+            .find({ client_id: clientId }) // Filter by client_id
+            .populate('client_id') // Fetch name and email from the Client collection
+            .populate('product_id') // Fetch name and price from the Product collection
+            .populate('representative_id') // Fetch name and email from the Representative collection
+            .sort({ createdAt: -1 });
+
+        // Check if any requests exist
+        if (!clientRequests || clientRequests.length === 0) {
+            return successResponse(res, 200, "No requests found for this client", []);
+        }
+
+        return successResponse(res, 200, "Requests fetched successfully", clientRequests);
+    } catch (error) {
+        console.error("Error fetching client requests:", error); // Log the error for debugging
+        return errorResponse(res, 500, "Something went wrong", error.message);
     }
 };
 
