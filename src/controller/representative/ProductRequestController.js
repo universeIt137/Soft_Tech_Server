@@ -73,6 +73,24 @@ exports.GetAllRequestInfoByAdmin = async (req, res) => {
     }
 };
 
+exports.GetSingleRequestInfoByClient = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const allRequests = await productRequestModel
+            .findById(id)
+            .populate('client_id') // Fetch name and email from the Client collection
+            .populate('product_id') // Fetch name and price from the Product collection
+            .populate('representative_id') // Fetch name and email from the Representative collection
+            .sort({ createdAt: -1 });
+
+        return successResponse(res, 200, "All data fetched", allRequests);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error);
+    }
+};
+
+
+
 exports.GetAllProductRequestForClient = async (req, res) => {
     const clientId = req.headers.clientId; // Extract clientId from headers
 
