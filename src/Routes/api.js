@@ -34,7 +34,7 @@ const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVid
 const supportController = require("../controller/client/supportController");
 const { isLoginClient } = require('../middleware/clientMiddleware.js')
 const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep, GetSingleRequestInfoByClient,  } = require('../controller/representative/ProductRequestController.js')
-const { MakePayments, GetClientPaymentList } = require('../controller/payment/PaymentController.js')
+const { MakePayments, GetClientPaymentList, GetAllPaymentListByAdmin, GetClientPaymentListOfRepresentative, GetClientPaymentListOfRepresentativeByAdmin } = require('../controller/payment/PaymentController.js')
 
 
 // Admin Api
@@ -208,5 +208,9 @@ router.get('/GetAllProductRequestForClient', isLoginClient, GetAllProductRequest
 // payment related api 
 router.post("/MakePayments", isLoginClient, MakePayments);
 router.get("/GetClientPaymentList", isLoginClient, GetClientPaymentList);
+
+router.get("/GetAllPaymentListByAdmin", GetAllPaymentListByAdmin);
+router.get('/GetClientPaymentListOfRepresentative', isLogInRep, GetClientPaymentListOfRepresentative);
+router.get('/GetClientPaymentListOfRepresentativeByAdmin/:id', isLogin, isAdmin, GetClientPaymentListOfRepresentativeByAdmin);
 
 module.exports = router
