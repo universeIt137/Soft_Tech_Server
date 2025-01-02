@@ -35,6 +35,7 @@ const supportController = require("../controller/client/supportController");
 const { isLoginClient } = require('../middleware/clientMiddleware.js')
 const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep, GetSingleRequestInfoByClient,  } = require('../controller/representative/ProductRequestController.js')
 const { MakePayments, GetClientPaymentList, GetAllPaymentListByAdmin, GetClientPaymentListOfRepresentative, GetClientPaymentListOfRepresentativeByAdmin } = require('../controller/payment/PaymentController.js')
+const { getClientsPaymentInfo, getClientProductReq, getClientSupportMsg } = require('../controller/admin/AdminWork.js')
 
 
 // Admin Api
@@ -198,7 +199,7 @@ router.delete("/support/:id", isLogin, isAdmin, supportController.deleteMessage)
 // product request related api 
 router.post("/MakeProductRequest", isLogInRep, MakeProductRequest);
 router.get("/GetAllRequestInfo", isLogInRep, GetAllRequestInfo);
-router.get("/SellingProdutByRep/:id",isLogin, isAdmin, SellingProdutByRep);
+router.get("/SellingProdutByRep/:id", SellingProdutByRep);
 router.get("/GetAllRequestInfoByAdmin", isLogin, isAdmin, GetAllRequestInfoByAdmin);
 router.get("/GetSingleRequestInfoByClient/:id", isLoginClient, GetSingleRequestInfoByClient);
 router.get("/UpdateRequestStatus/:id", isLogin, isAdmin, UpdateRequestStatus);
@@ -211,6 +212,15 @@ router.get("/GetClientPaymentList", isLoginClient, GetClientPaymentList);
 
 router.get("/GetAllPaymentListByAdmin", GetAllPaymentListByAdmin);
 router.get('/GetClientPaymentListOfRepresentative', isLogInRep, GetClientPaymentListOfRepresentative);
-router.get('/GetClientPaymentListOfRepresentativeByAdmin/:id', isLogin, isAdmin, GetClientPaymentListOfRepresentativeByAdmin);
+router.get('/GetClientPaymentListOfRepresentativeByAdmin/:id', GetClientPaymentListOfRepresentativeByAdmin);
+
+
+// Client Profile Related API in Admin Panel
+router.get('/getClientsPaymentInfo/:id', isLogin, isAdmin, getClientsPaymentInfo);
+
+router.get('/getClientProductReq/:id', isLogin, isAdmin, getClientProductReq);
+
+router.get('/getClientSupportMsg/:id', isLogin, isAdmin, getClientSupportMsg);
+
 
 module.exports = router
