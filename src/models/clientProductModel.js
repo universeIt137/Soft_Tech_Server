@@ -11,7 +11,7 @@ const clientProductSchema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "representatives",
     },
-    client_id: { type: mongoose.Types.ObjectId, ref: "clients" },
+    client_id: { type: mongoose.Types.ObjectId},
     productExtraDes: {
       type: String,
     },

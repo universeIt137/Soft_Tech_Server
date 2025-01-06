@@ -3,6 +3,7 @@ const clientModel = require("../../models/clientModel");
 const productRequestModel = require("../../models/representativeRelatedModels/ProductReqModel");
 const { successResponse, errorResponse } = require("../../utility/response");
 const clientProductModel = require("../../models/clientProductModel");
+const productCategoryModel = require("../../models/productCategoryModel");
 
 exports.MakeProductRequest = async (req, res) => {
   const id = req.headers.repId;
@@ -165,6 +166,7 @@ exports.UpdateRequestStatus = async (req, res) => {
 
 
 
+
 exports.ProductPurchaseRequest = async (req, res) => {
   const id = req.headers.repId;
   const repId = new mongoose.Types.ObjectId(id);
@@ -195,38 +197,105 @@ exports.GetAllPurchaseRequestInfoByRepresentative = async (req, res) => {
 
     return successResponse(res, 200, "All data fetched", allRequests);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return errorResponse(res, 500, "Something went wrong", error);
   }
 };
 
 exports.GetAllPurchaseRequestInfoByAdmin = async (req, res) => {
-    try {
-      const allRequests = await clientProductModel
-        .find()
-        .populate("client_id") // Fetch name and email from the Client collection
-        .populate("productCategory") // Fetch name and price from the Product collection
-        .populate("representative_id") // Fetch name and email from the Representative collection
-        .sort({ createdAt: -1 });
-  
-      return successResponse(res, 200, "All data fetched", allRequests);
-    } catch (error) {
-      return errorResponse(res, 500, "Something went wrong", error);
-    }
+  try {
+    const allRequests = await clientProductModel
+      .find()
+      .populate("client_id") // Fetch name and email from the Client collection
+      .populate("productCategory") // Fetch name and price from the Product collection
+      .populate("representative_id") // Fetch name and email from the Representative collection
+      .sort({ createdAt: -1 });
+
+    return successResponse(res, 200, "All data fetched", allRequests);
+  } catch (error) {
+    return errorResponse(res, 500, "Something went wrong", error);
+  }
 };
 
 exports.GetSingleProductRequestInfo = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const allRequests = await clientProductModel
+      .findById(id)
+      .populate("client_id") // Fetch name and email from the Client collection
+      .populate("productCategory") // Fetch name and price from the Product collection
+      .populate("representative_id") // Fetch name and email from the Representative collection
+      .sort({ createdAt: -1 });
+
+    return successResponse(res, 200, "All data fetched", allRequests);
+  } catch (error) {
+    return errorResponse(res, 500, "Something went wrong", error);
+  }
+};
+
+exports.UpdateProductRequestStatus = async (req, res) => {
+  try {
+    const id = req.params.id; // Extract the ID from request parameters
+    const productId = new mongoose.Types.ObjectId(id);
+
+    const data = await clientProductModel.findById({ _id: productId });
+
+    if (!data) {
+      return errorResponse(res, 404, "Data not found", null);
+    }
+
+    const statusUpdate = !data.status; // Toggle the status
+
+    const updateData = await clientProductModel.updateOne(
+      { _id: id },
+      { status: statusUpdate }
+    );
+
+    return successResponse(res, 200, "Status updated successfully", updateData);
+  } catch (error) {
+    console.error("Error toggling status:", error); // Log the error for debugging
+    return errorResponse(res, 500, "Something went wrong", error.message);
+  }
+};
+
+
+exports.ClientAllProductRequest = async (req,res)=>{
     try {
-      const id = req.params.id;
-      const allRequests = await clientProductModel
-        .findById(id)
+        const clientId = req.headers.clientId;
+        const id = new mongoose.Types.ObjectId(clientId);
+        const filter = {
+            client_id : id
+        };
+        const data = await clientProductModel.find(filter)
         .populate("client_id") // Fetch name and email from the Client collection
         .populate("productCategory") // Fetch name and price from the Product collection
         .populate("representative_id") // Fetch name and email from the Representative collection
         .sort({ createdAt: -1 });
-  
-      return successResponse(res, 200, "All data fetched", allRequests);
+        return successResponse(res,200,"Fetch all data successfully", data );
     } catch (error) {
-      return errorResponse(res, 500, "Something went wrong", error);
+        console.log(error)
+        return errorResponse(res,500,"Something went wrong",error)
     }
+};
+
+exports.RequestProductPriceUpated = async (req,res)=>{
+  try {
+    const id = req.params.id;
+    const filter = {
+      _id : id
+    };
+    const data = await productCategoryModel.findById(filter);
+    if(!data){
+      return errorResponse(res,404,"Data not found",null);
+    }
+    const price = req.body.price;
+    const update = {
+      price : price
+    }
+    const updateData = await productCategoryModel.updateOne(filter,update,{new:true});
+    return successResponse(res,200,"Price update successfully",updateData)
+  } catch (error) {
+    return errorResponse(res,500,"Something went wrong",error );
+  
+  }
 };
