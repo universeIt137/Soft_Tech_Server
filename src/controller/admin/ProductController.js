@@ -1,5 +1,7 @@
 const { default: mongoose } = require('mongoose');
 const ProductModel = require('../../models/ProductModel'); // Adjust the path as necessary
+const productCategoryModel = require('../../models/productCategoryModel');
+const { successResponse, errorResponse } = require('../../utility/response');
 
 // Create Product
 exports.CreateProduct = async (req, res) => {
@@ -151,5 +153,16 @@ exports.singleProductById = async (req, res) => {
             status: "fail",
             msg: error.toString()
         });
+    }
+};
+
+
+exports.createProductCategory = async (req,res)=>{
+    try {
+        let reqBody = req.body;
+        let data = await productCategoryModel.create(reqBody);
+        return successResponse(res,201,"Product category created",data);
+    } catch (error) {
+        return errorResponse(res,500,"Something went wrong",error)
     }
 };

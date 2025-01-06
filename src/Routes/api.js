@@ -223,4 +223,11 @@ router.get('/getClientProductReq/:id', isLogin, isAdmin, getClientProductReq);
 router.get('/getClientSupportMsg/:id', isLogin, isAdmin, getClientSupportMsg);
 
 
+
+// product category api
+
+router.post("/create-product-category", isLogin, isAdmin, ProductController.createProductCategory);
+
+
+
 module.exports = router
