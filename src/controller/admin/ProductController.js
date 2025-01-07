@@ -166,3 +166,12 @@ exports.createProductCategory = async (req,res)=>{
         return errorResponse(res,500,"Something went wrong",error)
     }
 };
+
+exports.allProductCategory = async (req,res)=>{
+    try {
+        let data = await productCategoryModel.find().sort({createdAt:-1});
+        return successResponse(res,200,"Fetch all data successfully",data);
+    } catch (error) {
+        return errorResponse(res,500,"Something went wrong",error);
+    }
+}

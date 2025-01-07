@@ -1,20 +1,33 @@
 const mongoose = require("mongoose");
-const {Schema,model} = mongoose;
+const { Schema, model } = mongoose;
 
-
-
-const clientProductSchema = new Schema({
-    productCategory : {
-        type : mongoose.Types.ObjectId,
-        ref : "productCategoryModel"
+const clientProductSchema = new Schema(
+  {
+    productCategory: {
+      type: mongoose.Types.ObjectId,
+    //   ref: "productCategoryModel",
     },
-    productExtraDes : {
-        type : String
+    representative_id: {
+      type: mongoose.Types.ObjectId,
+      ref: "representatives",
     },
-    duraction : {
-        type : String
+    client_id: { type: mongoose.Types.ObjectId},
+    productExtraDes: {
+      type: String,
+    },
+    duraction: {
+      type: String,
+    },
+    status: {
+      type: Boolean,
+      default: false,
+    },
+    fixedPrice : {
+      type : String,
     }
-},{timestamps:true,versionKey:false});
+  },
+  { timestamps: true, versionKey: false }
+);
 
 const clientProductModel = model("Client-ProductList", clientProductSchema);
 

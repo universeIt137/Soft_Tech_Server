@@ -33,7 +33,7 @@ const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVid
 
 const supportController = require("../controller/client/supportController");
 const { isLoginClient } = require('../middleware/clientMiddleware.js')
-const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep, GetSingleRequestInfoByClient,  } = require('../controller/representative/ProductRequestController.js')
+const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep, GetSingleRequestInfoByClient,ProductPurchaseRequest,GetAllPurchaseRequestInfoByRepresentative, GetAllPurchaseRequestInfoByAdmin ,GetSingleProductRequestInfo, UpdateProductRequestStatus, ClientAllProductRequest, RequestProductPriceUpated } = require('../controller/representative/ProductRequestController.js')
 const { MakePayments, GetClientPaymentList, GetAllPaymentListByAdmin, GetClientPaymentListOfRepresentative, GetClientPaymentListOfRepresentativeByAdmin } = require('../controller/payment/PaymentController.js')
 const { getClientsPaymentInfo, getClientProductReq, getClientSupportMsg } = require('../controller/admin/AdminWork.js')
 
@@ -227,6 +227,17 @@ router.get('/getClientSupportMsg/:id', isLogin, isAdmin, getClientSupportMsg);
 // product category api
 
 router.post("/create-product-category", isLogin, isAdmin, ProductController.createProductCategory);
+router.get("/all-product-category", isLogin, isAdmin, ProductController.allProductCategory);
+
+// proudct purchase api
+
+router.post("/product-purchase-request", isLogInRep, ProductPurchaseRequest );
+router.get("/product-purchase-request-representative", isLogInRep, GetAllPurchaseRequestInfoByRepresentative );
+router.get("/product-purchase-admin", isLogin, isAdmin, GetAllPurchaseRequestInfoByAdmin );
+router.get("/single-product-request/:id",  GetSingleProductRequestInfo );
+router.put("/product-status-update/:id", isLogin,isAdmin ,UpdateProductRequestStatus );
+router.get("/product-request-by-client", isLoginClient ,ClientAllProductRequest);
+router.put("/product-price-update/:id", isLogin, isAdmin ,RequestProductPriceUpated );
 
 
 
