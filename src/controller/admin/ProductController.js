@@ -174,4 +174,22 @@ exports.allProductCategory = async (req,res)=>{
     } catch (error) {
         return errorResponse(res,500,"Something went wrong",error);
     }
+};
+
+
+exports.singleProductCategory = async (req,res)=>{
+    try {
+        let id = req.params.id;
+        const filter = {
+            _id : id
+        };
+        const data = await productCategoryModel.findById(filter);
+        if(!data){
+            return errorResponse(res,404,"Data not found",null);
+        }
+        return successResponse(res,200,"Fetch single product",data);
+    } catch (error) {
+        return errorResponse(res,500,"Something went wrong",error)
+    }
 }
+
