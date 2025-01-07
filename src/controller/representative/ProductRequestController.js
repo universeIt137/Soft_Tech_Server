@@ -207,12 +207,13 @@ exports.GetAllPurchaseRequestInfoByAdmin = async (req, res) => {
     const allRequests = await clientProductModel
       .find()
       .populate("client_id") // Fetch name and email from the Client collection
-      .populate("productCategory") // Fetch name and price from the Product collection
+      .populate("product_id") // Fetch name and price from the Product collection
       .populate("representative_id") // Fetch name and email from the Representative collection
       .sort({ createdAt: -1 });
 
     return successResponse(res, 200, "All data fetched", allRequests);
   } catch (error) {
+    console.log(error)
     return errorResponse(res, 500, "Something went wrong", error);
   }
 };
