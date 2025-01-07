@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const clientProductSchema = new Schema(
   {
-    productCategory: {
+    product_id: {
       type: mongoose.Types.ObjectId,
     //   ref: "productCategoryModel",
     },
