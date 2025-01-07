@@ -22,6 +22,9 @@ const clientProductSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    fixedPrice : {
+      type : String,
+    }
   },
   { timestamps: true, versionKey: false }
 );
