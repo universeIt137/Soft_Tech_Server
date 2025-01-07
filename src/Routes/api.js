@@ -228,6 +228,7 @@ router.get('/getClientSupportMsg/:id', isLogin, isAdmin, getClientSupportMsg);
 
 router.post("/create-product-category", isLogin, isAdmin, ProductController.createProductCategory);
 router.get("/all-product-category", isLogin, isAdmin, ProductController.allProductCategory);
+router.get("/single-product-category/:id", isLogin, isAdmin, ProductController.singleProductCategory);
 
 // proudct purchase api
 
