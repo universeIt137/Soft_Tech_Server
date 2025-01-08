@@ -4,7 +4,7 @@ const { Schema } = require("mongoose");
 const DataSchema = new Schema(
     {
         client: { type: mongoose.Types.ObjectId, ref: 'clients' },
-        product: { type: mongoose.Types.ObjectId, ref: 'Client-ProductList' },
+        product: { type: mongoose.Types.ObjectId, ref: 'productCategory' },
         representative: { type: mongoose.Types.ObjectId, ref: 'representatives' },
         duration: { type: Number },
         transaction_id: { type: String },
