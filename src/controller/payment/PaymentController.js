@@ -22,7 +22,8 @@ exports.GetClientPaymentList = async (req, res) => {
         const data = await paymentModel.find(filter)
             .populate('client')
             .populate('product')
-            .populate('representative');
+            .populate('representative')
+            .sort({createdAt : -1} )
         
         return successResponse(res, 200, "All data fetched", data);
 
@@ -37,7 +38,8 @@ exports.GetAllPaymentListByAdmin = async (req, res) => {
         const data = await paymentModel.find()
             .populate('client')
             .populate('product')
-            .populate('representative');
+            .populate('representative')
+            .sort({createdAt : -1} )
         
         return successResponse(res, 200, "All data fetched", data);
 
@@ -50,14 +52,14 @@ exports.GetAllPaymentListByAdmin = async (req, res) => {
 exports.GetClientPaymentListOfRepresentative = async (req, res) => {
     try {
         const id = req.headers.repId;
-        console.log(id);
         const filter = {
             representative: new mongoose.Types.ObjectId(id),
         };
         const data = await paymentModel.find(filter)
             .populate('client')
             .populate('product')
-            .populate('representative');
+            .populate('representative')
+            .sort({createdAt : -1} )
         
         return successResponse(res, 200, "All data fetched", data);
 
@@ -77,7 +79,8 @@ exports.GetClientPaymentListOfRepresentativeByAdmin = async (req, res) => {
         const data = await paymentModel.find(filter)
             .populate('client')
             .populate('product')
-            .populate('representative');
+            .populate('representative')
+            .sort({createdAt : -1} )
         
         return successResponse(res, 200, "All data fetched", data);
 
