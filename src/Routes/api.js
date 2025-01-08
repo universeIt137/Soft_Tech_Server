@@ -33,7 +33,7 @@ const { addSessionVideo, getAllSessionVideo, sigleSessionVideo, updateSessionVid
 
 const supportController = require("../controller/client/supportController");
 const { isLoginClient } = require('../middleware/clientMiddleware.js')
-const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep, GetSingleRequestInfoByClient,ProductPurchaseRequest,GetAllPurchaseRequestInfoByRepresentative, GetAllPurchaseRequestInfoByAdmin ,GetSingleProductRequestInfo, UpdateProductRequestStatus, ClientAllProductRequest, RequestProductPriceUpated } = require('../controller/representative/ProductRequestController.js')
+const { MakeProductRequest, allClients, GetAllRequestInfo, GetAllRequestInfoByAdmin, UpdateRequestStatus, GetAllProductRequestForClient, SellingProdutByRep, GetSingleRequestInfoByClient,ProductPurchaseRequest,GetAllPurchaseRequestInfoByRepresentative, GetAllPurchaseRequestInfoByAdmin ,GetSingleProductRequestInfo, UpdateProductRequestStatus, ClientAllProductRequest, RequestProductPriceUpated, ClientSingleProductRequest } = require('../controller/representative/ProductRequestController.js')
 const { MakePayments, GetClientPaymentList, GetAllPaymentListByAdmin, GetClientPaymentListOfRepresentative, GetClientPaymentListOfRepresentativeByAdmin } = require('../controller/payment/PaymentController.js')
 const { getClientsPaymentInfo, getClientProductReq, getClientSupportMsg } = require('../controller/admin/AdminWork.js')
 
@@ -239,6 +239,7 @@ router.get("/single-product-request/:id",  GetSingleProductRequestInfo );
 router.put("/product-status-update/:id", isLogin,isAdmin ,UpdateProductRequestStatus );
 router.get("/product-request-by-client", isLoginClient ,ClientAllProductRequest);
 router.put("/product-price-update/:id", isLogin, isAdmin ,RequestProductPriceUpated );
+router.get("/single-product-requested/:productId", isLoginClient ,ClientSingleProductRequest );
 
 
 
