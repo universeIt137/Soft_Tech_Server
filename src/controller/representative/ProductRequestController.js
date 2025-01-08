@@ -264,14 +264,18 @@ exports.ClientAllProductRequest = async (req,res)=>{
     try {
         const clientId = req.headers.clientId;
         const id = new mongoose.Types.ObjectId(clientId);
+        console.log(id)
         const filter = {
             client_id : id
         };
         const data = await clientProductModel.find(filter)
         .populate("client_id") // Fetch name and email from the Client collection
-        .populate("productCategory") // Fetch name and price from the Product collection
+        .populate("product_id") // Fetch name and price from the Product collection
         .populate("representative_id") // Fetch name and email from the Representative collection
         .sort({ createdAt: -1 });
+        if(data.length===0){
+          return errorResponse(res,404,"Data not found",null)
+        }
         return successResponse(res,200,"Fetch all data successfully", data );
     } catch (error) {
         console.log(error)
