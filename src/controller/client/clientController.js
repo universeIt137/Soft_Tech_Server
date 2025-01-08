@@ -197,7 +197,7 @@ const getAllClientbyRepresentativeId = async (req, res) => {
             representativeId: id
         };
 
-        const clientOfRepresentative = await clientModel.find(filter);
+        const clientOfRepresentative = await clientModel.find(filter).sort({createdAt:-1});
 
         if (!clientOfRepresentative) {
             return errorResponse(res, 404, "Clients not found", null);
