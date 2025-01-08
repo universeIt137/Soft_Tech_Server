@@ -45,7 +45,7 @@ exports.SellingProdutByRep = async (req, res) => {
     const filter = {
       representative_id: new mongoose.Types.ObjectId(id),
     };
-    const allRequests = await productRequestModel
+    const allRequests = await clientProductModel
       .find(filter)
       .populate("client_id") // Fetch name and email from the Client collection
       .populate("product_id") // Fetch name and price from the Product collection
