@@ -9,7 +9,8 @@ const DataSchema = new Schema(
         duration: { type: Number },
         transaction_id: { type: String },
         paidAmount: { type: Number },
-        dueAmount: { type: Number }
+        dueAmount: { type: Number },
+        productName: { type: String },
     },
     {
         timestamps: true,
