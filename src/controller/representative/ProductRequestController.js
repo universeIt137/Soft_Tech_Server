@@ -260,47 +260,74 @@ exports.UpdateProductRequestStatus = async (req, res) => {
 };
 
 
-exports.ClientAllProductRequest = async (req,res)=>{
-    try {
-        const clientId = req.headers.clientId;
-        const id = new mongoose.Types.ObjectId(clientId);
-        console.log(id)
-        const filter = {
-            client_id : id
-        };
-        const data = await clientProductModel.find(filter)
-        .populate("client_id") // Fetch name and email from the Client collection
-        .populate("product_id") // Fetch name and price from the Product collection
-        .populate("representative_id") // Fetch name and email from the Representative collection
-        .sort({ createdAt: -1 });
-        if(data.length===0){
-          return errorResponse(res,404,"Data not found",null)
-        }
-        return successResponse(res,200,"Fetch all data successfully", data );
-    } catch (error) {
-        console.log(error)
-        return errorResponse(res,500,"Something went wrong",error)
+exports.ClientAllProductRequest = async (req, res) => {
+  try {
+    const clientId = req.headers.clientId;
+    const id = new mongoose.Types.ObjectId(clientId);
+    console.log(id)
+    const filter = {
+      client_id: id
+    };
+    const data = await clientProductModel.find(filter)
+      .populate("client_id") // Fetch name and email from the Client collection
+      .populate("product_id") // Fetch name and price from the Product collection
+      .populate("representative_id") // Fetch name and email from the Representative collection
+      .sort({ createdAt: -1 });
+    if (data.length === 0) {
+      return errorResponse(res, 404, "Data not found", null)
     }
+    return successResponse(res, 200, "Fetch all data successfully", data);
+  } catch (error) {
+    console.log(error)
+    return errorResponse(res, 500, "Something went wrong", error)
+  }
 };
 
-exports.RequestProductPriceUpated = async (req,res)=>{
+exports.RequestProductPriceUpated = async (req, res) => {
   try {
     const id = req.params.id;
     const filter = {
-      _id : id
+      _id: id
     };
     const data = await productCategoryModel.findById(filter);
-    if(!data){
-      return errorResponse(res,404,"Data not found",null);
+    if (!data) {
+      return errorResponse(res, 404, "Data not found", null);
     }
     const price = req.body.price;
     const update = {
-      price : price
+      price: price
     }
-    const updateData = await productCategoryModel.updateOne(filter,update,{new:true});
-    return successResponse(res,200,"Price update successfully",updateData)
+    const updateData = await productCategoryModel.updateOne(filter, update, { new: true });
+    return successResponse(res, 200, "Price update successfully", updateData)
   } catch (error) {
-    return errorResponse(res,500,"Something went wrong",error );
-  
+    return errorResponse(res, 500, "Something went wrong", error);
+
+  }
+};
+
+
+
+exports.ClientSingleProductRequest = async (req, res) => {
+  try {
+    const clientId = req.headers.clientId;
+    const productId = new mongoose.Types.ObjectId(req.params.productId) ;
+
+    const id = new mongoose.Types.ObjectId(clientId);
+
+    const filter = {
+      client_id: id,
+      _id : productId
+    };
+    const data = await clientProductModel.findOne(filter)
+      .populate("client_id") // Fetch name and email from the Client collection
+      .populate("product_id") // Fetch name and price from the Product collection
+      .populate("representative_id") // Fetch name and email from the Representative collection
+    if (!data) {
+      return errorResponse(res, 404, "Data not found", null)
+    }
+    return successResponse(res, 200, "Fetch data successfully", data);
+  } catch (error) {
+    console.log(error)
+    return errorResponse(res, 500, "Something went wrong", error)
   }
 };
