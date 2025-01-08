@@ -191,7 +191,7 @@ exports.GetAllPurchaseRequestInfoByRepresentative = async (req, res) => {
     const allRequests = await clientProductModel
       .find(filter)
       .populate("client_id") // Fetch name and email from the Client collection
-      .populate("productCategory") // Fetch name and price from the Product collection
+      .populate("product_id") // Fetch name and price from the Product collection
       .populate("representative_id") // Fetch name and email from the Representative collection
       .sort({ createdAt: -1 });
 
