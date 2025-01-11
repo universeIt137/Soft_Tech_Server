@@ -21,12 +21,13 @@ const productCategorySchema = new Schema(
         price: {
           type: String,
         },
+        representativePercentange: {
+          type: String,
+        },
       },
     ],
 
-    representativePercentange: {
-      type: String,
-    },
+
   },
   { timestamps: true, versionKey: false }
 );
