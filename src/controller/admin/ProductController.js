@@ -110,7 +110,7 @@ exports.singleProductById = async (req, res) => {
     try {
         let id = new mongoose.Types.ObjectId(req.params.id);
         const matchStage = { $match: { _id: id } };
-        
+
         // join with category id
         const joinWithCategoryId = {
             $lookup: {
@@ -120,7 +120,7 @@ exports.singleProductById = async (req, res) => {
                 as: "category"
             }
         };
-        
+
         // unwind category
         const unwindCategory = {
             $unwind: {
@@ -157,39 +157,59 @@ exports.singleProductById = async (req, res) => {
 };
 
 
-exports.createProductCategory = async (req,res)=>{
+exports.createProductCategory = async (req, res) => {
     try {
         let reqBody = req.body;
         let data = await productCategoryModel.create(reqBody);
-        return successResponse(res,201,"Product category created",data);
+        return successResponse(res, 201, "Product category created", data);
     } catch (error) {
-        return errorResponse(res,500,"Something went wrong",error)
+        return errorResponse(res, 500, "Something went wrong", error)
     }
 };
 
-exports.allProductCategory = async (req,res)=>{
+exports.allProductCategory = async (req, res) => {
     try {
-        let data = await productCategoryModel.find().sort({createdAt:-1});
-        return successResponse(res,200,"Fetch all data successfully",data);
+        let data = await productCategoryModel.find().sort({ createdAt: -1 });
+        return successResponse(res, 200, "Fetch all data successfully", data);
     } catch (error) {
-        return errorResponse(res,500,"Something went wrong",error);
+        return errorResponse(res, 500, "Something went wrong", error);
     }
 };
 
 
-exports.singleProductCategory = async (req,res)=>{
+exports.singleProductCategory = async (req, res) => {
     try {
         let id = req.params.id;
         const filter = {
-            _id : id
+            _id: id
         };
         const data = await productCategoryModel.findById(filter);
-        if(!data){
-            return errorResponse(res,404,"Data not found",null);
+        if (!data) {
+            return errorResponse(res, 404, "Data not found", null);
         }
-        return successResponse(res,200,"Fetch single product",data);
+        return successResponse(res, 200, "Fetch single product", data);
     } catch (error) {
-        return errorResponse(res,500,"Something went wrong",error)
+        return errorResponse(res, 500, "Something went wrong", error)
+    }
+}
+
+
+
+exports.productCategoryUpdate = async (req, res) => {
+    try {
+        let id = req.params.id;
+        const filter = {
+            _id: id
+        };
+        const data = await productCategoryModel.findById(filter);
+        if (!data) {
+            return errorResponse(res, 404, "Data not found", null);
+        }
+        const reqBody = req.body;
+        let updateData = await productCategoryModel.updateOne(filter, reqBody, { new: true })
+        return successResponse(res, 200, "Fetch single product", updateData);
+    } catch (error) {
+        return errorResponse(res, 500, "Something went wrong", error)
     }
 }
 
