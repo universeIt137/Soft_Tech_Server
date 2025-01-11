@@ -6,6 +6,9 @@ const productCategorySchema = new Schema(
     categoryName: {
       type: String,
     },
+    img : {
+      type : String,
+    },
     package: [
       {
 
