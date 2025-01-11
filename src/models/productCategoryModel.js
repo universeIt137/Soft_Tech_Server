@@ -3,11 +3,12 @@ const { Schema, model } = mongoose;
 
 const productCategorySchema = new Schema(
   {
-    productName: {
+    categoryName: {
       type: String,
     },
     package: [
       {
+
         totalPage: {
           type: String,
         },
@@ -17,11 +18,12 @@ const productCategorySchema = new Schema(
         deliveryTime: {
           type: String,
         },
+        price: {
+          type: String,
+        },
       },
     ],
-    price: {
-      type: String,
-    },
+
     representativePercentange: {
       type: String,
     },
@@ -29,7 +31,7 @@ const productCategorySchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-const productCategoryModel = model("productCategory",productCategorySchema  );
+const productCategoryModel = model("productCategory", productCategorySchema);
 
 
 module.exports = productCategoryModel;
