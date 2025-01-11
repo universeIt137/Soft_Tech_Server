@@ -35,8 +35,6 @@ const productCategorySchema = new Schema(
         },
       },
     ],
-
-
   },
   { timestamps: true, versionKey: false }
 );

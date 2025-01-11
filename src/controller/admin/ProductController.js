@@ -201,7 +201,7 @@ exports.productCategoryUpdate = async (req, res) => {
         const filter = {
             _id: id
         };
-        const data = await productCategoryModel.findById(filter);
+        const data = await productCategoryModel.findOne(filter);
         if (!data) {
             return errorResponse(res, 404, "Data not found", null);
         }
