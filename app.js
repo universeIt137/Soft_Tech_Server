@@ -29,8 +29,9 @@ app.options("*", cors()); // preflight
 // 2️⃣ Optional: Only specific origin (production recommended)
 app.use(
   cors({
-    origin: "https://universesofttech.co", // single origin
-    credentials: true,                     // cookies, auth
+    origin: "https://universesofttech.co", // only this domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true, // cookies/session
   })
 );
 app.options("*", cors());
