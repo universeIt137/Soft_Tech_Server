@@ -24,6 +24,17 @@ app.use(xss());
 app.use(hpp());
 app.use(mongoSanitize());
 
+app.options("*", cors()); // preflight
+
+// 2️⃣ Optional: Only specific origin (production recommended)
+app.use(
+  cors({
+    origin: "https://universesofttech.co", // single origin
+    credentials: true,                     // cookies, auth
+  })
+);
+app.options("*", cors());
+
 // Serving static files
 app.use('/files', express.static(path.join(__dirname, 'files')));
 
