@@ -29,7 +29,7 @@ app.options("*", cors()); // preflight
 // 2️⃣ Optional: Only specific origin (production recommended)
 app.use(
   cors({
-    origin: "https://universesofttech.co", // only this domain
+    origin: "http://localhost:5173", // only this domain
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true, // cookies/session
   })
